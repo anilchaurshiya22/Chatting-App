@@ -14,7 +14,7 @@
                 http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
   
     <!-- import security config -->
-    <import resource="springSecurity.xml" />
+    <import resource="SpringSecurity.xml" />
     <mvc:annotation-driven  />
     
        
@@ -79,5 +79,8 @@
         <property name="sf" ref="sessionFactory"/>
     </bean>    
    
+<!--    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" >
+        <property name="contextPath" value="generated" />
+    </bean>-->
     
 </beans>
