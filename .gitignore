@@ -1,0 +1,10 @@
+.settings/**
+target/**
+.classpath
+.project
+/target/
+WebContent/**
+.springBeans
+bin/*
+nb-configuration.xml
+
