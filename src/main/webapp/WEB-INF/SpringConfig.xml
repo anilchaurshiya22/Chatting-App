@@ -34,6 +34,9 @@
             <list>
                 <value>com.springchat.domain.User</value>
                 <value>com.springchat.domain.UserRoles</value>
+                <value>com.springchat.domain.Chat</value>
+                <value>com.springchat.domain.ChatMessage</value>
+                <value>com.springchat.domain.ChatMember</value>
             </list>
         </property>
     </bean>
