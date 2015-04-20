@@ -6,45 +6,7 @@
 <html>
     <head>
         <title>Login Page </title>
-        <link rel="stylesheet" type="text/css" href="../resources/style.css"/>
-        <style>
-            .errorblock {
-                color: #ff0000;
-                background-color: #ffEEEE;
-                border: 3px solid #ff0000;
-                padding: 8px;
-                margin: 16px;
-            }
-            .error {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-                color: #a94442;
-                background-color: #f2dede;
-                border-color: #ebccd1;
-            }
-
-            .msg {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-                color: #31708f;
-                background-color: #d9edf7;
-                border-color: #bce8f1;
-            }
-
-            #login-box {
-                width: 300px;
-                padding: 20px;
-                margin: 100px auto;
-                background: #fff;
-                -webkit-border-radius: 2px;
-                -moz-border-radius: 2px;
-                border: 1px solid #000;
-            }
-        </style>
+        <link href="resources/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body onload='document.f.j_username.focus();'>
         <div id="login-box">
