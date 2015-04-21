@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender) {
-        return userDao.findFriendRequestByUsernameAndStatus(sender);
+    public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User sender) {
+        return userDao.getAllFriendRequestByUsernameAndStatus(sender);
     }
 }

@@ -21,5 +21,5 @@ public interface UserService {
 
     public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender);
     
-    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender);
+    public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User sender);
 }

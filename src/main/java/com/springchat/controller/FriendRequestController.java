@@ -8,9 +8,11 @@ import com.springchat.util.EmailValidator;
 import com.springchat.util.RandomGenerator;
 import com.springchat.util.SecurityUtil;
 import java.util.Date;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,6 +84,13 @@ public class FriendRequestController {
         userService.addFriendRequest(friendRequest);
         attributes.addFlashAttribute("message", "Friend Request Sent to:" + username);
         return "redirect:/sendRequest";
+    }
 
+    @RequestMapping(value = "/friendRequests", method = RequestMethod.GET)
+    public String getFriendRequestList(Model model) {
+        User currentUser = SecurityUtil.getSessionUser(userService);
+        List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
+        model.addAttribute("friendRequests", friendRequests);
+        return "dashboard";
     }
 }

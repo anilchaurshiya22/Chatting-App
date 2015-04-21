@@ -57,9 +57,9 @@ public class UserDao {
         return (FriendRequest) query.uniqueResult();
     }
 
-    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender) {
-        Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.sender.id=:senderId and f.status='N'");
-        query.setParameter("senderId", sender.getId());
+    public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User user) {
+        Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.receiver.id=:senderId and f.status='N'");
+        query.setParameter("senderId", user.getId());
         return query.list();
     }
 }
