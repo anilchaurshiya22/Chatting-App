@@ -36,4 +36,18 @@ public class UserDao {
         query.setParameter("username", username);
         return (User) query.uniqueResult();
     }
+ 
+    public void insertNewUser(User user) {
+        sf.getCurrentSession().persist(user); 
+    }
+
+    public void updateUser(User user) {
+      sf.getCurrentSession().update(user);
+    }
+
+    public User checkEmail(String email) {
+        Query query = sf.getCurrentSession().createQuery("from User u where u.email=:email");
+        query.setParameter("email", email);
+        return (User) query.uniqueResult();
+    }
 }

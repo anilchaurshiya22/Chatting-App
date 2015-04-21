@@ -36,4 +36,19 @@ public class UserServiceImpl implements UserService {
        return userDao.findUserByUsername(username);
     }
 
+    @Override
+    public void insertNewUser(User user) {
+        userDao.insertNewUser(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+      userDao.updateUser(user);
+    }
+
+    @Override
+    public User checkEmail(String email) {
+        return userDao.checkEmail(email);
+     }
+
 }

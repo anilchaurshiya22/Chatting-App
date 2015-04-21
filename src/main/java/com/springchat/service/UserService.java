@@ -14,4 +14,10 @@ public interface UserService {
 //    public List<User> getAllUsers();
 
     public User findUserByUsername(String username);
+
+    public void insertNewUser(User user);
+
+    public void updateUser(User user);
+    
+    public User checkEmail(String email);
 }
