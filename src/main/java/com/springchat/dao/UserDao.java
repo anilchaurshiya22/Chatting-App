@@ -2,6 +2,7 @@ package com.springchat.dao;
 
 import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
+import com.springchat.serviceImpl.MailService;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,9 @@ public class UserDao {
 
 //    @Autowired
     private SessionFactory sf;
+    
+    @Autowired
+    private MailService mailService;
 
     public void setSf(SessionFactory sf) {
         this.sf = sf;
@@ -77,5 +81,15 @@ public class UserDao {
         query.setParameter("senderId", sender.getId());
         return query.list();
 
+    }
+
+    public void sendResetLink(String link,String toUser) {
+        mailService.sendResetLink("toUser", toUser, "Password Reset", link);
+    }
+
+    public User getUserByEmail(String email) {
+        Query query = sf.getCurrentSession().createQuery("from User u where u.email=:email");
+        query.setParameter("email", email);
+        return (User) query.uniqueResult();
     }
 }

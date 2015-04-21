@@ -28,4 +28,8 @@ public interface UserService {
     public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender);
     
     public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender);
+
+    public void sendResetLink(String link,String toUser);
+
+    public User getUserByEmail(String email);
 }

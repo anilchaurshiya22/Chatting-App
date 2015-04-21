@@ -59,11 +59,9 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "mm/dd/yyyy")
     private Date dob;
     
+    private Character gender; 
     
-    private Character gender;
-    
-    @Transient
-    private String tokenValue;
+    private String tokenValue; 
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<UserRoles> userRoles;

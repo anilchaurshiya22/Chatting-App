@@ -1,9 +1,7 @@
 package com.springchat.controller;
 
-import com.springchat.domain.User;
-import com.springchat.validator.EmailValidator;
+import com.springchat.service.UserService;
 import java.security.Principal;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,8 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+
     @Autowired
-    private EmailValidator emailValidator;
+    private UserService userService;
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String executeSecurity(ModelMap model, Principal principal) {
@@ -78,22 +75,4 @@ public class LoginController {
         return model;
 
     }
-    
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-    public String forgetPassword(@ModelAttribute("user") User user) {
-        return "forgetPassword";
-    }
-    
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public String forgetPassword(@ModelAttribute("user") User user, BindingResult bres) {
-        emailValidator.setIndex(1);
-        emailValidator.validate(user, bres);
-        if(bres.hasErrors()){
-            return "forgetPassword";
-        }
-        System.out.println("uuser ------- : " + user.getEmail() + " --- -- === ) "+ user.getTokenValue());
-        
-        return "redirect:/login";
-    }
-
 }

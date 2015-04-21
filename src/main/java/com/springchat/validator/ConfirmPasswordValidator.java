@@ -19,11 +19,18 @@ public class ConfirmPasswordValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        User user = (User) obj;
-
-        if (user.getPassword() == null || user.getConfirmPassword() == null || !user.getConfirmPassword().equals(user.getPassword())) {
+         User user = (User) obj;
+        if (user.getPassword() == null || user.getConfirmPassword() == null || user.getPassword().length() == 0 
+                    || user.getConfirmPassword().length() == 0 ) {
+            errors.rejectValue("password",
+                    "not.Empty");
             errors.rejectValue("confirmPassword",
-                    "password.mismatch");
+                    "not.Empty");
+        } else {
+            if (!user.getConfirmPassword().equals(user.getPassword())) {
+                errors.rejectValue("confirmPassword",
+                        "password.mismatch");
+            }
         }
 
     }
