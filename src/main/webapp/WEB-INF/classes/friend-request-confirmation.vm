@@ -1,0 +1,82 @@
+<html>
+    <style>
+        .bodydesign{
+            height: 200px;
+            width: 450px;
+            border: thick;
+            border-width: thick;
+            background-color: #F7F9FA;
+            border-style: ridge;            
+        }
+        .botton{
+            margin-left: 117px;
+            margin-top: 60px;
+        }      
+
+
+        .myButton {
+            background-color:#44c767;
+            -moz-border-radius:28px;
+            -webkit-border-radius:28px;
+            border-radius:28px;
+            border:1px solid #18ab29;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:arial;
+            font-size:17px;
+            padding:7px 22px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #2f6627;
+        }
+        .myButton:hover {
+            background-color:#5cbf2a;
+        }
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }
+
+
+    </style>
+    <body style="height: 200px;
+            width: 450px;
+            border: thick;
+            border-width: thick;
+            background-color: #F7F9FA;
+            border-style: ridge;">
+        
+            <h2 style="margin-left: 110px;">Spring Chat </h2>
+            <div class="botton">
+                <a href="#" style="background-color:#44c767;
+            -moz-border-radius:28px;
+            -webkit-border-radius:28px;
+            border-radius:28px;
+            border:1px solid #18ab29;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:arial;
+            font-size:17px;
+            padding:7px 22px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #2f6627;">Accept</a>
+                <a href="#" style="background-color:#44c767;
+            -moz-border-radius:28px;
+            -webkit-border-radius:28px;
+            border-radius:28px;
+            border:1px solid #18ab29;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:arial;
+            font-size:17px;
+            padding:7px 22px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #2f6627;">Decline</a>
+
+                <!--                <input type="submit" value="Accept" style="size: 20px;" /> <input type="submit" value="Decline"/>-->
+            </div>
+
+    </body>
+</html>
