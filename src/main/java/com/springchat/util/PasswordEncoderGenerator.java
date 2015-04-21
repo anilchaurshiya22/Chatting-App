@@ -16,7 +16,9 @@ public class PasswordEncoderGenerator {
         return hashedPassword;
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(beCryptPassword("anil"));
+    }
 }
 
 

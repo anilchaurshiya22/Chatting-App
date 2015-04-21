@@ -9,6 +9,7 @@
         <title>Dashboard</title>
     </head>
     <body>
+        <h1>${message}</h1>	
         <h1>Friend Request List</h1>
         <table>
             <tr>
@@ -22,12 +23,13 @@
                     <td>${friendRequest.sender.username}</td>
                     <td>${friendRequest.sendDate}</td>
                     <td>${friendRequest.message}</td>
-                                    
+
+
                     <td><a href="friendRequests/accept/${friendRequest.id}">Accept</a></td>
                     <td><a href="friendRequests/decline/${friendRequest.id}">Decline</a></td>
                 </tr>
             </c:forEach>
         </table>
-       
+
     </body>
 </html>

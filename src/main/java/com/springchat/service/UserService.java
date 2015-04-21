@@ -29,4 +29,10 @@ public interface UserService {
     public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender);
 
     public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User sender);
+
+    public FriendRequest findFriendRequestById(long id);
+
+    public void updateFriendRequest(FriendRequest friendRequest);
+
+    public void deleteFriendRequest(FriendRequest friendRequest);
 }

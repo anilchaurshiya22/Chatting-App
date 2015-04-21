@@ -78,4 +78,16 @@ public class UserDao {
         return query.list();
 
     }
+
+    public FriendRequest findFriendRequestById(long id) {
+        return (FriendRequest) sf.getCurrentSession().load(FriendRequest.class, id);
+    }
+
+    public void updateFriendRequest(FriendRequest friendRequest) {
+        sf.getCurrentSession().update(friendRequest);
+    }
+
+    public void deleteFriendRequest(FriendRequest friendRequest) {
+        sf.getCurrentSession().delete(friendRequest);
+    }
 }

@@ -77,4 +77,19 @@ public class UserServiceImpl implements UserService {
     public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender) {
         return userDao.getAllFriendRequestByUsernameAndStatus(sender);
     }
+
+    @Override
+    public FriendRequest findFriendRequestById(long id) {
+        return userDao.findFriendRequestById(id);
+    }
+
+    @Override
+    public void updateFriendRequest(FriendRequest friendRequest) {
+        userDao.updateFriendRequest(friendRequest);
+    }
+
+    @Override
+    public void deleteFriendRequest(FriendRequest friendRequest) {
+        userDao.deleteFriendRequest(friendRequest);
+    }
 }
