@@ -109,8 +109,6 @@
     <bean id="userDao" class="com.springchat.dao.UserDao">
         <property name="sf" ref="sessionFactory"/>
     </bean>    
-<!--   <bean id="securityUtil" class="com.springchat.util.SecurityUtil">
-        <property name="userDao" ref="userDao"/>
-    </bean>-->
+
     
 </beans>

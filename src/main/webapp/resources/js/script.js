@@ -9,14 +9,22 @@ $(function () {
         };
     });
 
-    $('#to').textext({
-        plugins: 'tags prompt focus autocomplete ajax arrow',
-        tagsItems: ['Basic', 'JavaScript', 'PHP', 'Scala'],
-        prompt: 'Add one...',
-        ajax: {
-            url: 'http://localhost:8080/SpringChat/resources/json/dataArray.json',
-            dataType: 'json',
-            cacheResults: true
+    $('#to').chosen();
+    
+    $('#message').on("keydown", function(e){
+        if(e.keyCode === 13) {
+            $.ajax({
+               url: baseUrl + 'chat/new-chat',
+                type: 'POST',
+                data: {
+                    friends: $('#to').val(),
+                    message: $('#message').val()
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+            return false;
         }
     });
 });

@@ -7,27 +7,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Spring Chat</title>
-        <c:set var="base" value="${pageContext.servletContext.contextPath}" />
-        <link rel="stylesheet" href="resources/css/bootstrap.css"/>
-        <link rel="stylesheet" href="resources/css/chat.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.core.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.arrow.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.autocomplete.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.focus.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.prompt.css"/>
-        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.tags.css"/>
+        <c:set var="base" value="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.servletContext.contextPath}/" />
+        <link rel="stylesheet" href="${base}resources/css/bootstrap.css"/>
+        <link rel="stylesheet" href="${base}resources/css/chat.css"/>
+        <link rel="stylesheet" href="${base}resources/css/chosen.css"/>
 <!--        <link rel="stylesheet" href="resources/css/jquery-ui.css"/>-->
-        <script src="resources/js/jquery2.1.3.js"></script>
+        <script src="${base}resources/js/jquery2.1.3.js"></script>
 <!--        <script src="resources/js/jquery-ui.js"></script>
         <script src="resources/js/tag-it.js"></script>-->
-        <script src="resources/plugin/js/textext.core.js"></script>
-        <script src="resources/plugin/js/textext.plugin.ajax.js"></script>
-        <script src="resources/plugin/js/textext.plugin.autocomplete.js"></script>
-        <script src="resources/plugin/js/textext.plugin.arrow.js"></script>
-        <script src="resources/plugin/js/textext.plugin.focus.js"></script>
-        <script src="resources/plugin/js/textext.plugin.tags.js"></script>
-        <script src="resources/plugin/js/textext.plugin.prompt.js"></script>
-        <script src="resources/js/script.js"></script>
+        <script src="${base}resources/js/chosen.jquery.js"></script>
+        <script src="${base}resources/js/script.js"></script>
+        <script type="text/javascript">
+            var baseUrl = '${base}';
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -49,7 +41,7 @@
                         <li><a href="#">Help</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <input type="text" class="form-control" placeholder="">
                     </form>
                 </div>
             </div>
@@ -82,7 +74,11 @@
                         <div class="form-group">
                             <label for="to" class="col-sm-1 control-label">To</label>
                             <div class="col-sm-11">
-                                <textarea id="to" class="form-control" rows="1"></textarea>
+                                <select id="to" class="form-control" multiple="multiple">
+                                    <option value="1">Anil Chaurishya</option>
+                                    <option value="2">Bikram Pradhan</option>
+                                    <option value="3">Suraj Shrestha</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -99,7 +95,7 @@
                         </div>
                     </div>
                     <div style="position: fixed;bottom: 20px;" class="col-sm-9">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea id="message" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
             </div>
