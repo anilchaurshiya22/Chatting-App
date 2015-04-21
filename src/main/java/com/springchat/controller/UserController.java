@@ -2,11 +2,14 @@ package com.springchat.controller;
 
 import com.springchat.validator.ConfirmPasswordValidator;
 import com.springchat.domain.User;
+import com.springchat.domain.UserRoles;
 import com.springchat.service.UserService;
 import com.springchat.util.GenerateRandomNumber;
 import com.springchat.util.PasswordEncoderGenerator;
 import com.springchat.validator.EmailValidator;
 import com.springchat.validator.UniqueUsernameValidator;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,15 +45,24 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres, RedirectAttributes redirectAttributes) {
         confirmPasswordValidator.validate(user, bres);
-        //   UniqueUsernameValidator.validate(user, bres); 
+        UniqueUsernameValidator.validate(user, bres); 
         emailValidator.setIndex(0);
         emailValidator.validate(user, bres);
         if (bres.hasErrors()) {
             return "register";
         }
         user.setPassword(PasswordEncoderGenerator.beCryptPassword(user.getPassword()));
-        redirectAttributes.addFlashAttribute("userVal", user);
+        user.setActive(true);
+        List<UserRoles> userRoles = new ArrayList<>();
+        UserRoles userRole = new UserRoles();
+        userRole.setRole("ROLE_USER");
+        userRoles.add(userRole);
+        userRole.setUser(user); 
+        user.setUserRoles(userRoles);
+       
         userService.insertNewUser(user);
+        
+        redirectAttributes.addFlashAttribute("userVal", user);
         return "redirect:/login";
     }
 
