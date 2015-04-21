@@ -18,6 +18,7 @@
                 <td>Message</td>
                 <td>Action</td>
             </tr>
+           
             <c:forEach var="friendRequest" items="${friendRequests}">
                 <tr>
                     <td>${friendRequest.sender.username}</td>
@@ -25,8 +26,17 @@
                     <td>${friendRequest.message}</td>
 
 
-                    <td><a href="friendRequests/accept/${friendRequest.id}">Accept</a></td>
-                    <td><a href="friendRequests/decline/${friendRequest.id}">Decline</a></td>
+<!--                    <td><a href="friendRequests/accept/${friendRequest.id}">Accept</a></td>
+                    <td><a href="friendRequests/decline/${friendRequest.id}">Decline</a></td>-->
+                    <td>
+                        <form action="friendRequests/accept?id=${friendRequest.id}" method="post">
+                            <button type="submit">Accept</button>
+                        </form>
+                    </td> <td>
+                        <form action="friendRequests/decline?id=${friendRequest.id}" method="post">
+                            <button type="submit">Decline</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

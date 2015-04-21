@@ -4,6 +4,7 @@ import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
 import com.springchat.service.UserService;
 import com.springchat.serviceImpl.MailService;
+import com.springchat.util.Datas;
 import com.springchat.util.EmailValidator;
 import com.springchat.util.RandomGenerator;
 import com.springchat.util.SecurityUtil;
@@ -98,8 +99,8 @@ public class FriendRequestController {
         return "dashboard";
     }
 
-    @RequestMapping(value = "friendRequests/accept/{id}", method = RequestMethod.GET)
-    public String acceptFriendRequest(@PathVariable int id, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "friendRequests/accept", method = RequestMethod.POST)
+    public String acceptFriendRequest( int id, RedirectAttributes redirectAttributes) {
         FriendRequest friendRequest = userService.findFriendRequestById(id);
         User friend = userService.findUserById(friendRequest.getSender().getId());
         System.out.println("friend==" + friend.getUsername());
@@ -125,8 +126,8 @@ public class FriendRequestController {
 
     }
 
-    @RequestMapping(value = "friendRequests/decline/{id}", method = RequestMethod.GET)
-    public String declineFriendRequest(@PathVariable int id, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "friendRequests/decline", method = RequestMethod.POST)
+    public String declineFriendRequest( int id, RedirectAttributes redirectAttributes) {
         FriendRequest friendRequest = userService.findFriendRequestById(id);
         userService.deleteFriendRequest(friendRequest);
         return "redirect:/friendRequests";

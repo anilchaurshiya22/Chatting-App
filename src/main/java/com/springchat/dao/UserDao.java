@@ -20,7 +20,7 @@ public class UserDao {
 
 //    @Autowired
     private SessionFactory sf;
-    
+
     @Autowired
     private MailService mailService;
 
@@ -83,9 +83,8 @@ public class UserDao {
 
     }
 
-
-    public void sendResetLink(String link,String toUser) {
-        mailService.sendResetLink("toUser", toUser, "Password Reset", link);
+    public void sendResetLink(String link, String toUser) {
+        mailService.sendEmailRequest("toUser", toUser, "Password Reset", link);
     }
 
     public User getUserByEmail(String email) {
@@ -93,6 +92,7 @@ public class UserDao {
         query.setParameter("email", email);
         return (User) query.uniqueResult();
     }
+
     public FriendRequest findFriendRequestById(long id) {
         return (FriendRequest) sf.getCurrentSession().load(FriendRequest.class, id);
     }

@@ -34,8 +34,7 @@ public class MailService {
      * This method will send compose and send the message
      *
      */
-    
-    public void sendResetLink(final String from, final String to, final String subject, final String body) {
+    public void sendEmailRequest(final String from, final String to, final String subject, final String body) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
@@ -46,24 +45,14 @@ public class MailService {
                 Map model = new HashMap();
                 model.put("from", from);
                 model.put("message", "message");
-                String text = Datas.html.replace("{link}", body);
-                message.setText(text, true);
+                //     String text = body
+                message.setText(body, true);
             }
         };
         mailSender.send(preparator);
     }
 
     public void sendMail(final String from, final String to, final String subject, final String body) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom(from);
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(body);
-//        Map model = new HashMap();
-//        model.put("from", from);
-//        model.put("message", "message");
-//        mailSender.send(message);
-
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
