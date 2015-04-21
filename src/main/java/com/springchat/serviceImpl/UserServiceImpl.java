@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-//    @Override
-//    public User findUserById(long id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
+
+    @Override
+    public User findUserById(long id) {
+        return userDao.findUserById(id);
+    }
+
 //    @Override
 //    public List<User> getAllUsers() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public User findUserByUsername(String username) {
         return userDao.findUserByUsername(username);
@@ -55,23 +55,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User sender) {
+        return userDao.getAllFriendRequestByUsernameAndStatus(sender);
+    }
+
+    @Override
     public void insertNewUser(User user) {
         userDao.insertNewUser(user);
     }
 
     @Override
     public void updateUser(User user) {
-      userDao.updateUser(user);
+        userDao.updateUser(user);
     }
 
     @Override
     public User checkEmail(String email) {
         return userDao.checkEmail(email);
-     }
-
+    }
 
     public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender) {
-        return userDao.findFriendRequestByUsernameAndStatus(sender);
+        return userDao.getAllFriendRequestByUsernameAndStatus(sender);
+    }
+
+    @Override
+    public FriendRequest findFriendRequestById(long id) {
+        return userDao.findFriendRequestById(id);
+    }
+
+    @Override
+    public void updateFriendRequest(FriendRequest friendRequest) {
+        userDao.updateFriendRequest(friendRequest);
+    }
+
+    @Override
+    public void deleteFriendRequest(FriendRequest friendRequest) {
+        userDao.deleteFriendRequest(friendRequest);
     }
 
     @Override
