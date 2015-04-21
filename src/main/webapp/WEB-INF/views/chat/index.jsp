@@ -10,7 +10,23 @@
         <c:set var="base" value="${pageContext.servletContext.contextPath}" />
         <link rel="stylesheet" href="resources/css/bootstrap.css"/>
         <link rel="stylesheet" href="resources/css/chat.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.core.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.arrow.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.autocomplete.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.focus.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.prompt.css"/>
+        <link rel="stylesheet" href="resources/plugin/css/textext.plugin.tags.css"/>
+<!--        <link rel="stylesheet" href="resources/css/jquery-ui.css"/>-->
         <script src="resources/js/jquery2.1.3.js"></script>
+<!--        <script src="resources/js/jquery-ui.js"></script>
+        <script src="resources/js/tag-it.js"></script>-->
+        <script src="resources/plugin/js/textext.core.js"></script>
+        <script src="resources/plugin/js/textext.plugin.ajax.js"></script>
+        <script src="resources/plugin/js/textext.plugin.autocomplete.js"></script>
+        <script src="resources/plugin/js/textext.plugin.arrow.js"></script>
+        <script src="resources/plugin/js/textext.plugin.focus.js"></script>
+        <script src="resources/plugin/js/textext.plugin.tags.js"></script>
+        <script src="resources/plugin/js/textext.plugin.prompt.js"></script>
         <script src="resources/js/script.js"></script>
     </head>
     <body>
@@ -62,15 +78,15 @@
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="height: 100%;">
-                    <div id="chat-messages" class="hiddenz form-horizontal">
+                    <div id="new-chat" class="form-horizontal" style="display: none;">
                         <div class="form-group">
                             <label for="to" class="col-sm-1 control-label">To</label>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="to" placeholder="Name">
+                                <textarea id="to" class="form-control" rows="1"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div id="chat-messages" class="hidden">
+                    <div id="chat-messages" style="display: block;">
                         <h2 class="sub-header" style="border-bottom-width: 0px;">Section title</h2>
                         <div class="list-group">
                             <a href="#" class="list-group-item">Hi</a>
