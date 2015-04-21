@@ -10,6 +10,7 @@
 <body>
 	<h1>Message : ${message}</h1>	
 	<h1>Author : ${author}</h1>	
+        <a href='<c:url value="/sendRequest" />' > Send Friend Request</a>
 	<a href='<c:url value="/j_spring_security_logout" />' > Logout</a>
 </body>
 </html>

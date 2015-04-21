@@ -1,16 +1,29 @@
 package com.springchat.domain;
 
+
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -22,15 +35,43 @@ import org.springframework.security.core.GrantedAuthority;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private String username;
+    
+    @NotEmpty
     private String password;
+    @Transient
+    public String confirmPassword;
+    
     private Byte active;
-    @OneToMany(mappedBy = "user")
+
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotBlank @Email
+    private String email;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @NotNull(message = "invalid date") 
+    @Past(message = "invalid date") 
+    @DateTimeFormat(pattern = "mm/dd/yyyy")
+    private Date dob;
+    
+    
+    private Character gender;
+    
+    @Transient
+    private String tokenValue;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<UserRoles> userRoles;
+
     @ManyToMany
+    @JoinTable(name = "user_friend", 
+            joinColumns = {@JoinColumn(name = "user_id")}, 
+            inverseJoinColumns = {@JoinColumn(name = "friend_id")})
     private List<User> friends;
 
     public Long getId() {
@@ -73,6 +114,73 @@ public class User implements Serializable {
         this.userRoles = userRoles;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public Character getGender() {
+        return gender;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getTokenValue() {
+        return tokenValue;
+    }
+
+    public void setTokenValue(String tokenValue) {
+        this.tokenValue = tokenValue;
+    }
+    
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
