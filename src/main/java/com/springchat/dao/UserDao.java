@@ -38,6 +38,21 @@ public class UserDao {
         return (User) query.uniqueResult();
     }
 
+ 
+    public void insertNewUser(User user) {
+        sf.getCurrentSession().persist(user); 
+    }
+
+    public void updateUser(User user) {
+      sf.getCurrentSession().update(user);
+    }
+
+    public User checkEmail(String email) {
+        Query query = sf.getCurrentSession().createQuery("from User u where u.email=:email");
+        query.setParameter("email", email);
+        return (User) query.uniqueResult();
+    }
+
     public void addFriendRequest(FriendRequest request) {
         sf.getCurrentSession().persist(request);
     }
@@ -61,5 +76,6 @@ public class UserDao {
         Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.receiver.id=:senderId and f.status='N'");
         query.setParameter("senderId", user.getId());
         return query.list();
+
     }
 }
