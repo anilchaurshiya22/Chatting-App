@@ -16,9 +16,11 @@
     <http auto-config="true">
         <access-denied-handler  error-page="/403" />
         <intercept-url pattern="/index*" access="ROLE_USER" />
+        <intercept-url pattern="/sendRequest" access="ROLE_USER" />
         <form-login login-page="/login" default-target-url="/index"
                     authentication-failure-url="/loginFailed" />
         <logout invalidate-session="true" logout-success-url="/logout" delete-cookies="JSESSIONID" />
+        
     </http> 
     
     <authentication-manager>
@@ -28,6 +30,8 @@
                                authorities-by-username-query="select us.username, ur.role from users us, user_roles ur 
 		      where us.id = ur.user_id and us.username =?  " 
             />
+            <password-encoder hash="bcrypt" />
+            
         </authentication-provider>
     </authentication-manager>
      

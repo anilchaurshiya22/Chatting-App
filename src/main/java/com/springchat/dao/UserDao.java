@@ -1,5 +1,6 @@
 package com.springchat.dao;
 
+import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
 import java.util.List;
 import org.hibernate.Query;
@@ -36,6 +37,7 @@ public class UserDao {
         query.setParameter("username", username);
         return (User) query.uniqueResult();
     }
+
  
     public void insertNewUser(User user) {
         sf.getCurrentSession().persist(user); 
@@ -49,5 +51,31 @@ public class UserDao {
         Query query = sf.getCurrentSession().createQuery("from User u where u.email=:email");
         query.setParameter("email", email);
         return (User) query.uniqueResult();
+    }
+
+    public void addFriendRequest(FriendRequest request) {
+        sf.getCurrentSession().persist(request);
+    }
+
+    public FriendRequest findFriendRequestByReceiverAndSender(User receiver, User sender) {
+        Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.sender.id=:senderId and f.receiver.id=:receiverId and f.status='N'");
+        query.setParameter("senderId", sender.getId());
+        query.setParameter("receiverId", receiver.getId());
+//        query.setParameter("status", "N");
+        return (FriendRequest) query.uniqueResult();
+    }
+
+    public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender) {
+        Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.sender.id=:senderId and f.receiverEmail=:receiverEmail and f.status='N'");
+        query.setParameter("senderId", sender.getId());
+        query.setParameter("receiverEmail", email);
+        return (FriendRequest) query.uniqueResult();
+    }
+
+    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender) {
+        Query query = sf.getCurrentSession().createQuery("from FriendRequest f where f.sender.id=:senderId and f.status='N'");
+        query.setParameter("senderId", sender.getId());
+        return query.list();
+
     }
 }

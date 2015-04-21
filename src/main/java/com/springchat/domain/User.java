@@ -67,7 +67,7 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<UserRoles> userRoles;
-    
+
     @ManyToMany
     @JoinTable(name = "user_friend", 
             joinColumns = {@JoinColumn(name = "user_id")}, 

@@ -1,5 +1,6 @@
 package com.springchat.service;
 
+import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
 import java.util.List;
 
@@ -12,7 +13,6 @@ public interface UserService {
 //    public User findUserById(long id);
 //
 //    public List<User> getAllUsers();
-
     public User findUserByUsername(String username);
 
     public void insertNewUser(User user);
@@ -20,4 +20,12 @@ public interface UserService {
     public void updateUser(User user);
     
     public User checkEmail(String email);
+
+    public void addFriendRequest(FriendRequest request);
+
+    public FriendRequest findFriendRequestByReceiverAndSender(User receiver, User sender);
+
+    public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender);
+    
+    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender);
 }
