@@ -57,8 +57,7 @@ public class User implements Serializable {
     @NotNull(message = "invalid date") 
     @Past(message = "invalid date") 
     @DateTimeFormat(pattern = "mm/dd/yyyy")
-    private Date dob;
-    
+    private Date dob;   
     
     private Character gender;
     

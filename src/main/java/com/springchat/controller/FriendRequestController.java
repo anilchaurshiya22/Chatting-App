@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +32,8 @@ public class FriendRequestController {
 
     @Autowired
     private MailService mailService;
+    @Autowired
+    private SecurityUtil securityUtil;
 
     @RequestMapping(value = "/sendRequest", method = RequestMethod.GET)
     public String sendRequest(@ModelAttribute("friendRequest") FriendRequest friendRequest) {
@@ -44,7 +47,7 @@ public class FriendRequestController {
 
         User user = userService.findUserByUsername(username);
 
-        User currentUser = SecurityUtil.getSessionUser(userService);
+        User currentUser = securityUtil.getSessionUser();
 
         if (username.equals(currentUser.getUsername())) {
             attributes.addFlashAttribute("message", "Sorry!!!,You can not send request to your self.");
@@ -88,9 +91,16 @@ public class FriendRequestController {
 
     @RequestMapping(value = "/friendRequests", method = RequestMethod.GET)
     public String getFriendRequestList(Model model) {
-        User currentUser = SecurityUtil.getSessionUser(userService);
+        User currentUser = securityUtil.getSessionUser();
         List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
         model.addAttribute("friendRequests", friendRequests);
+        return "dashboard";
+    }
+
+    @RequestMapping(value = "friendRequests/accept/{id}", method = RequestMethod.GET)
+    public String acceptFriendRequest(@PathVariable int id, Model model) {
+        User friend = userService.findUserById(id);
+        User currentUser = securityUtil.getSessionUser();
         return "dashboard";
     }
 }

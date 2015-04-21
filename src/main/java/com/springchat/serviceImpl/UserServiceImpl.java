@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-//    @Override
-//    public User findUserById(long id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
+
+    @Override
+    public User findUserById(long id) {
+        return userDao.findUserById(id);
+    }
+
 //    @Override
 //    public List<User> getAllUsers() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public User findUserByUsername(String username) {
         return userDao.findUserByUsername(username);
@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllFriendRequestByUsernameAndStatus(sender);
     }
 
+    @Override
     public void insertNewUser(User user) {
         userDao.insertNewUser(user);
     }

@@ -24,27 +24,27 @@ public class UserDao {
         this.sf = sf;
     }
 
-//    public User findUserById(long id) {
-//        
-//    }
+    public User findUserById(long id) {
+        return (User) sf.getCurrentSession().load(User.class, id);
+    }
 //
 //    
 //    public List<User> getAllUsers() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+
     public User findUserByUsername(String username) {
         Query query = sf.getCurrentSession().createQuery("from User u where u.username=:username");
         query.setParameter("username", username);
         return (User) query.uniqueResult();
     }
 
- 
     public void insertNewUser(User user) {
-        sf.getCurrentSession().persist(user); 
+        sf.getCurrentSession().persist(user);
     }
 
     public void updateUser(User user) {
-      sf.getCurrentSession().update(user);
+        sf.getCurrentSession().update(user);
     }
 
     public User checkEmail(String email) {
