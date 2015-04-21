@@ -67,7 +67,7 @@
     
     
     <bean id="txManager"
-           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
@@ -82,8 +82,17 @@
         <property name="sf" ref="sessionFactory"/>
     </bean>    
    
-<!--    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" >
+    <!--    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" >
         <property name="contextPath" value="generated" />
+    </bean>-->
+    
+<!--    <bean id="jsonView"
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <constructor-arg>
+            <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                <property name="autodetectAnnotations" value="true"/>
+            </bean>
+        </constructor-arg>
     </bean>-->
     
 </beans>
