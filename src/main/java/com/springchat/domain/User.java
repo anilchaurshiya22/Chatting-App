@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,6 +30,8 @@ public class User implements Serializable {
     private Byte active;
     @OneToMany(mappedBy = "user")
     private List<UserRoles> userRoles;
+    @ManyToMany
+    private List<User> friends;
 
     public Long getId() {
         return id;
