@@ -28,7 +28,7 @@
 
                     <tr>
                         <td><form:label path = "dob" >DOB : </form:label></td>
-                        <td><form:input path="dob" value="19/19/1989" /></td>
+                        <td><form:input path="dob" value="11/19/1989" /></td>
                         <td><form:errors path="dob" cssClass="error"/></td>
                     </tr>
                     <tr>

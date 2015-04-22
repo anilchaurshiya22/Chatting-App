@@ -16,8 +16,8 @@
     </head>
     <body>
         <jsp:include page="nav.jsp" />
-        <h1>${message}</h1>	
         <div id="friendRequestDiv" style="margin-top: 90px; margin-left : 20px;">
+            <h1>${message}</h1>	
             <form:form commandName="friendRequest" action="sendRequest"  method='POST'>
 
                 <table>

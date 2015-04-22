@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta http-equiv="Content-Type" conwtent="text/html; charset=ISO-8859-1">
         <link rel="stylesheet" href="resources/css/bootstrap.css"/>
     </head>
     <body>
@@ -11,9 +11,11 @@
         <div class="container-fluid">
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-left">
-                     <li><a href='<c:url value="/index" />' > Dash Board </a></li>
+                    <li><a href='<c:url value="/index" />' > Dash Board </a></li>
                     <li><a href='<c:url value="/sendRequest" />' > Send Friend Request</a></li>
-                    <li><a href='<c:url value="/adminController" />'>Manage Users</a></li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                        <li><a href='<c:url value="/adminController" />'>Manage Users</a></li>
+                    </sec:authorize>
                     <li><a href='<c:url value="/chat" />' > Chat</a></li>
                     <li><a href='<c:url value="/edit" />' > Edit Profile </a></li>
                 </ul>
