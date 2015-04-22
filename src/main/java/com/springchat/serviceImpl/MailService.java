@@ -46,7 +46,7 @@ public class MailService {
                 model.put("from", from);
                 model.put("message", body);
                 //     String text = body
-                message.setText(body, true);
+                message.setText(Datas.html.replace("{link}", body), true);
             }
         };
         mailSender.send(preparator);

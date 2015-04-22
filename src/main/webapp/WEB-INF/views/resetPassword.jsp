@@ -9,7 +9,7 @@
     </head>
     <body>
         <form:form action="resetPassword" method="POST" commandName="user">
-            <table>
+            <table border = "0">
                 <tr>
                     <td>Password:</td>
                     <td><form:password path="password" /></td>

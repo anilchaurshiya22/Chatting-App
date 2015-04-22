@@ -15,8 +15,9 @@
         <link href="resources/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>${message}</h1>	
-        <div id="friendRequestDiv">
+        <div id="friendRequestDiv" style="margin-top: 90px; margin-left : 20px;">
             <form:form commandName="friendRequest" action="sendRequest"  method='POST'>
 
                 <table>

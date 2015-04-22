@@ -9,7 +9,8 @@
        <link href="resources/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div align="left">
+        <jsp:include page="nav.jsp" />
+        <div align="left" style="margin-top: 90px; margin-left : 20px;">
             <form:form action="edit" method="POST" commandName="user">
                 <form:hidden path = "id" value = "${userVal.id}" />
                 <table border="0">

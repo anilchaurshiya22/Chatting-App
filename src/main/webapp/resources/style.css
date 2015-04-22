@@ -26,7 +26,6 @@
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border: 1px solid #000;
-<<<<<<< HEAD
 }
 
 
@@ -44,7 +43,9 @@ input[type="text"],input[type="password"], input[type="submit"], select{
 
 input[type="submit"]{
     min-width: 90px;
-    height : 40px;
+    height : 35px;
+    margin-top : 30px;
+    margin-left : 100px;
 }
 
 .error{
