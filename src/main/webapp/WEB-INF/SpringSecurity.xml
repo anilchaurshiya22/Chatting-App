@@ -16,7 +16,8 @@
     <http auto-config="true">
         <access-denied-handler  error-page="/403" />
         <intercept-url pattern="/index*" access="ROLE_USER" />
-        <intercept-url pattern="/sendRequest" access="ROLE_USER" />
+        <intercept-url pattern="/sendRequest" access="ROLE_USER"/>
+<!--        <intercept-url pattern="/adminController" access="ROLE_ADMIN"/>-->
         <form-login login-page="/login" default-target-url="/index"
                     authentication-failure-url="/loginFailed" />
         <logout invalidate-session="true" logout-success-url="/logout" delete-cookies="JSESSIONID" />
