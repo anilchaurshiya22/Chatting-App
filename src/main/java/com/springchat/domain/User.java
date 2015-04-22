@@ -116,6 +116,10 @@ public class User implements Serializable {
     public void setUserRoles(List<UserRoles> userRoles) {
         this.userRoles = userRoles;
     }
+    
+    public String getName() {
+        return firstName + " " + lastName;
+    }
 
     public String getFirstName() {
         return firstName;

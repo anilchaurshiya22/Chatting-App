@@ -70,7 +70,7 @@ public class FriendRequestController {
                 friendRequest.setInviteCode(randInviteCode);
                 friendRequest.setReceiverEmail(username);
                 //send Email to new Request.
-                String subject = currentUser.getUsername() + " has send you Friend Request in Spring Chat App.";
+                String subject = currentUser.getUsername() + " invite you to SpringChatPro.";
                 mailService.sendMail(currentUser.getUsername(), username, subject, message);
             }
         } else {

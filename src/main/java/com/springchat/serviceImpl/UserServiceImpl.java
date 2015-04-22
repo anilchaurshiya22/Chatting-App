@@ -94,8 +94,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendResetLink(String link,String toUser) {
-        userDao.sendResetLink(link,toUser);
+    public void sendResetLink(String link, String toUser) {
+        userDao.sendResetLink(link, toUser);
     }
 
     @Override
@@ -106,5 +106,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsers() {
        return userDao.getUsers();
+    }
+    public List<User> getUserHavingBirthDayToday(int month, int day) {
+        return userDao.getUserHavingBirthDayToday(month, day);
     }
 }

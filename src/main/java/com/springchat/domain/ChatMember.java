@@ -24,11 +24,23 @@ public class ChatMember {
     private int id;
     
     @NotNull
-    @Column(name="user_id")
+    @ManyToOne
     private User user;
     
-    @ManyToOne
-    private Chat chat;
+    private Date lastActivity;
+
+    public ChatMember(User user) {
+        this.user = user;
+        this.lastActivity = new Date();
+    }
+
+    public Date getLastActivity() {
+        return lastActivity;
+    }
+
+    public void setLastActivity(Date lastActivity) {
+        this.lastActivity = lastActivity;
+    }
 
     public int getId() {
         return id;
@@ -44,14 +56,6 @@ public class ChatMember {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
     }
     
 }

@@ -4,8 +4,7 @@ package com.springchat.util;
  *
  * @author 984350
  */
-
-
+import java.util.Calendar;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordEncoderGenerator {
@@ -16,10 +15,8 @@ public class PasswordEncoderGenerator {
         return hashedPassword;
     }
 
-    public static void main(String[] args) {
-        System.out.println(beCryptPassword("anil"));
-    }
+//    public static void main(String[] args) {
+
+//    }
+
 }
-
-
-

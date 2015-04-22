@@ -6,9 +6,13 @@
 package com.springchat.domain;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -29,6 +33,15 @@ public class Chat {
     private Boolean isGroup;
     
     private String chatStatus;
+    
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="chat_id")
+    private List<ChatMember> members;
+
+    public Chat() {
+        isGroup = false;
+        lastUpdated = new Date();
+    }
 
     public int getId() {
         return id;
@@ -60,6 +73,22 @@ public class Chat {
 
     public void setIsGroup(Boolean isGroup) {
         this.isGroup = isGroup;
+    }
+
+    public String getChatStatus() {
+        return chatStatus;
+    }
+
+    public void setChatStatus(String chatStatus) {
+        this.chatStatus = chatStatus;
+    }
+
+    public List<ChatMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<ChatMember> members) {
+        this.members = members;
     }
     
 }
