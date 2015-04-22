@@ -1,7 +1,11 @@
 package com.springchat.controller;
 
+import com.springchat.domain.FriendRequest;
+import com.springchat.domain.User;
 import com.springchat.service.UserService;
+import com.springchat.util.SecurityUtil;
 import java.security.Principal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,13 +25,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-
     @Autowired
     private UserService userService;
-    
+
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String executeSecurity(ModelMap model, Principal principal) {
         String name = principal.getName();
+
+        User currentUser = securityUtil.getSessionUser();
+        List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
+        model.addAttribute("friendRequests", friendRequests);
+
         model.addAttribute("author", name);
         model.addAttribute("message", "Welcome To Dashboard!!!");
         return "dashboard";

@@ -4,11 +4,9 @@ import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
 import com.springchat.service.UserService;
 import com.springchat.serviceImpl.MailService;
-import com.springchat.util.Datas;
 import com.springchat.util.EmailValidator;
 import com.springchat.util.RandomGenerator;
 import com.springchat.util.SecurityUtil;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,6 +31,7 @@ public class FriendRequestController {
 
     @Autowired
     private MailService mailService;
+    
     @Autowired
     private SecurityUtil securityUtil;
 
@@ -91,13 +89,13 @@ public class FriendRequestController {
         return "redirect:/sendRequest";
     }
 
-    @RequestMapping(value = "/friendRequests", method = RequestMethod.GET)
-    public String getFriendRequestList(Model model) {
-        User currentUser = securityUtil.getSessionUser();
-        List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
-        model.addAttribute("friendRequests", friendRequests);
-        return "dashboard";
-    }
+//    @RequestMapping(value = "/friendRequests", method = RequestMethod.GET)
+//    public String getFriendRequestList(Model model) {
+//        User currentUser = securityUtil.getSessionUser();
+//        List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
+//        model.addAttribute("friendRequests", friendRequests);
+//        return "dashboard";
+//    }
 
     @RequestMapping(value = "friendRequests/accept", method = RequestMethod.POST)
     public String acceptFriendRequest(int id, RedirectAttributes redirectAttributes) {
@@ -121,8 +119,7 @@ public class FriendRequestController {
 
         //display this message in page
         redirectAttributes.addFlashAttribute("message", "You become friends with " + friend.getUsername());
-//        model.addAttribute("message", "You become friends with " + friend.getUsername());
-        return "redirect:/friendRequests";
+        return "redirect:/index";
 
     }
 
@@ -130,7 +127,7 @@ public class FriendRequestController {
     public String declineFriendRequest(int id, RedirectAttributes redirectAttributes) {
         FriendRequest friendRequest = userService.findFriendRequestById(id);
         userService.deleteFriendRequest(friendRequest);
-        return "redirect:/friendRequests";
+        return "redirect:/index";
     }
 
 }
