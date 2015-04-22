@@ -1,10 +1,12 @@
 package com.springchat.serviceImpl;
 
+import com.springchat.util.Datas;
 import java.util.HashMap;
 import java.util.Map;
 import javax.mail.internet.MimeMessage;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -32,17 +34,25 @@ public class MailService {
      * This method will send compose and send the message
      *
      */
-    public void sendMail(final String from, final String to, final String subject, final String body) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom(from);
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(body);
-//        Map model = new HashMap();
-//        model.put("from", from);
-//        model.put("message", "message");
-//        mailSender.send(message);
+    public void sendEmailRequest(final String from, final String to, final String subject, final String body) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(to);
+                message.setFrom(from);
+                message.setSubject(subject);
+                message.setText(body);
+                Map model = new HashMap();
+                model.put("from", from);
+                model.put("message", "message");
+                //     String text = body
+                message.setText(body, true);
+            }
+        };
+        mailSender.send(preparator);
+    }
 
+    public void sendMail(final String from, final String to, final String subject, final String body) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);

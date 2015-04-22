@@ -4,9 +4,11 @@ import com.springchat.domain.FriendRequest;
 import com.springchat.domain.User;
 import com.springchat.service.UserService;
 import com.springchat.serviceImpl.MailService;
+import com.springchat.util.Datas;
 import com.springchat.util.EmailValidator;
 import com.springchat.util.RandomGenerator;
 import com.springchat.util.SecurityUtil;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -97,10 +99,38 @@ public class FriendRequestController {
         return "dashboard";
     }
 
-    @RequestMapping(value = "friendRequests/accept/{id}", method = RequestMethod.GET)
-    public String acceptFriendRequest(@PathVariable int id, Model model) {
-        User friend = userService.findUserById(id);
+    @RequestMapping(value = "friendRequests/accept", method = RequestMethod.POST)
+    public String acceptFriendRequest( int id, RedirectAttributes redirectAttributes) {
+        FriendRequest friendRequest = userService.findFriendRequestById(id);
+        User friend = userService.findUserById(friendRequest.getSender().getId());
+        System.out.println("friend==" + friend.getUsername());
         User currentUser = securityUtil.getSessionUser();
-        return "dashboard";
+        List<User> users = currentUser.getFriends();
+
+        users.add(friend);
+        List<User> otherUserFriends = friend.getFriends();
+
+        otherUserFriends.add(currentUser);
+        currentUser.setFriends(users);
+        friend.setFriends(otherUserFriends);
+
+        friendRequest.setStatus(new Character('Y'));
+        userService.updateFriendRequest(friendRequest);
+        userService.updateUser(currentUser);
+        userService.updateUser(friend);
+
+        //display this message in page
+        redirectAttributes.addFlashAttribute("message", "You become friends with " + friend.getUsername());
+//        model.addAttribute("message", "You become friends with " + friend.getUsername());
+        return "redirect:/friendRequests";
+
     }
+
+    @RequestMapping(value = "friendRequests/decline", method = RequestMethod.POST)
+    public String declineFriendRequest( int id, RedirectAttributes redirectAttributes) {
+        FriendRequest friendRequest = userService.findFriendRequestById(id);
+        userService.deleteFriendRequest(friendRequest);
+        return "redirect:/friendRequests";
+    }
+
 }

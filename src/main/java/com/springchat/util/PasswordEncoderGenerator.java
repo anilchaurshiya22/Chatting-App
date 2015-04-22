@@ -15,10 +15,17 @@ public class PasswordEncoderGenerator {
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
+<<<<<<< HEAD
 //    public static void main(String[] args) {
 //        System.out.println(beCryptPassword("asdfasdf"));
 //    }
 
+=======
+
+    public static void main(String[] args) {
+        System.out.println(beCryptPassword("anil"));
+    }
+>>>>>>> ae293af16735599c5be7ea966174b4849f05262f
 }
 
 

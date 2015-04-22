@@ -45,7 +45,7 @@
                        value="${_csrf.token}" />
             </form>
             
-            <a href="forgetPassword">Forget Password </a>
+            <a href="register">Register </a> | <a href="forgetPassword">Forget Password </a>
             
         </div>
     </body>

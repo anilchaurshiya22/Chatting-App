@@ -27,6 +27,18 @@ public interface UserService {
     public FriendRequest findFriendRequestByReceiverAndSender(User receiver, User sender);
 
     public FriendRequest findFriendRequestByReceiverEmailAndSender(String email, User sender);
+    
+    public List<FriendRequest> findFriendRequestByUsernameAndStatus(User sender);
+
+    public void sendResetLink(String link,String toUser);
+
+    public User getUserByEmail(String email);
 
     public List<FriendRequest> getAllFriendRequestByUsernameAndStatus(User sender);
+
+    public FriendRequest findFriendRequestById(long id);
+
+    public void updateFriendRequest(FriendRequest friendRequest);
+
+    public void deleteFriendRequest(FriendRequest friendRequest);
 }

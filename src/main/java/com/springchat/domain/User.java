@@ -1,6 +1,5 @@
 package com.springchat.domain;
 
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -35,42 +34,45 @@ import org.springframework.security.core.GrantedAuthority;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
     private String username;
-    
+
     @NotEmpty
     private String password;
     @Transient
     public String confirmPassword;
-    
-    private Byte active;
+
+    private boolean active;
 
     @NotBlank
     private String firstName;
     @NotBlank
     private String lastName;
-    @NotBlank @Email
+    @NotBlank
+    @Email
     private String email;
     @Temporal(javax.persistence.TemporalType.DATE)
-    @NotNull(message = "invalid date") 
-    @Past(message = "invalid date") 
+    @NotNull(message = "invalid date")
+    @Past(message = "invalid date")
     @DateTimeFormat(pattern = "mm/dd/yyyy")
-    private Date dob;   
-    
+    private Date dob;
+
     private Character gender;
-    
-    @Transient
+
     private String tokenValue;
-    
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<UserRoles> userRoles;
 
     @ManyToMany
-    @JoinTable(name = "user_friend", 
-            joinColumns = {@JoinColumn(name = "user_id")}, 
-            inverseJoinColumns = {@JoinColumn(name = "friend_id")})
+    @JoinTable(name = "user_friend",
+            joinColumns = {
+                @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "friend_id")})
     private List<User> friends;
 
     public Long getId() {
@@ -97,11 +99,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Byte getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Byte active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -180,10 +182,7 @@ public class User implements Serializable {
     public void setTokenValue(String tokenValue) {
         this.tokenValue = tokenValue;
     }
-    
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
