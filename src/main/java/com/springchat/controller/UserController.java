@@ -8,6 +8,7 @@ import com.springchat.util.GenerateRandomNumber;
 import com.springchat.util.PasswordEncoderGenerator;
 import com.springchat.validator.EmailValidator;
 import com.springchat.validator.UniqueUsernameValidator;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres, RedirectAttributes redirectAttributes) {
+    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres) {
         confirmPasswordValidator.validate(user, bres);
         UniqueUsernameValidator.validate(user, bres); 
         emailValidator.setIndex(0);
@@ -61,8 +62,6 @@ public class UserController {
         user.setUserRoles(userRoles);
        
         userService.insertNewUser(user);
-        
-        redirectAttributes.addFlashAttribute("userVal", user);
         return "redirect:/login";
     }
 
@@ -72,11 +71,12 @@ public class UserController {
             return "edit";
         }
         userService.updateUser(user);
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editProfile(@ModelAttribute("user") User user) {
+    public String editProfile(@ModelAttribute("user") User user,Model model,Principal principal) {
+        model.addAttribute("userVal", userService.findUserByUsername(principal.getName()));
         return "edit";
     }
 

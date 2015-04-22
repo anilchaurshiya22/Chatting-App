@@ -24,7 +24,7 @@
                         <td><form:input path="lastName" value="${userVal.lastName}" /></td>
                         <td><form:errors path="lastName" cssClass="error"/></td>
                     </tr>
-                    
+
                     <tr>
                         <td>DOB :</td>
                         <td><form:input path="dob" value="${userVal.dob}"/></td>
@@ -40,15 +40,11 @@
                         </td>
                         <td></td>
                     </tr>
-                    
+
                     <form:hidden path="username" value="${userVal.username}"/>
-                   <form:hidden path="password" value="${userVal.password}"/>
-             
-                    <tr>
-                        <td>E-mail:</td>
-                        <td><form:input path="email" value="${userVal.email}"/></td>
-                        <td><form:errors path="email" cssClass="error"/></td>
-                    </tr>
+                    <form:hidden path="password" value="${userVal.password}"/>
+                    <form:hidden path="email" value="${userVal.email}"/>
+
                     <tr>
                         <td colspan="3" align="center"><input type="submit" value="Update" /></td>
                     </tr>
