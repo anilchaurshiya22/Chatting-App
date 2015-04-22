@@ -7,7 +7,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div align="center">
+        <div align="left">
             <form:form action="edit" method="POST" commandName="user">
                 <form:hidden path = "id" value = "${userVal.id}" />
                 <table border="0">

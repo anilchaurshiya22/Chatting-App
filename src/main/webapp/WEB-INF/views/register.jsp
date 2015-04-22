@@ -12,7 +12,7 @@
         </style>
     </head>
     <body>
-        <div align="center">
+        <div align="left">
             <form:form action="register" method="POST" commandName="user">
                 <table border="0">
                     <tr>
