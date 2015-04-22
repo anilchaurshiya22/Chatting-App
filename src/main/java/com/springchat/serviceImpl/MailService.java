@@ -44,7 +44,7 @@ public class MailService {
                 message.setText(body);
                 Map model = new HashMap();
                 model.put("from", from);
-                model.put("message", "message");
+                model.put("message", body);
                 //     String text = body
                 message.setText(body, true);
             }
@@ -62,9 +62,28 @@ public class MailService {
                 message.setText(body);
                 Map model = new HashMap();
                 model.put("from", from);
-                model.put("message", "message");
+                model.put("message", body);
                 String text = VelocityEngineUtils.mergeTemplateIntoString(
                         velocityEngine, "friend-request-confirmation.vm", model);
+                message.setText(text, true);
+            }
+        };
+        mailSender.send(preparator);
+    }
+
+    public void sendBirthMailMail(final String to, final String subject, final String body) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(to);
+//                message.setFrom(from);
+                message.setSubject(subject);
+                message.setText(body);
+                Map model = new HashMap();
+//                model.put("from", from);
+                model.put("message", body);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(
+                        velocityEngine, "birthDayAlert.vm", model);
                 message.setText(text, true);
             }
         };
