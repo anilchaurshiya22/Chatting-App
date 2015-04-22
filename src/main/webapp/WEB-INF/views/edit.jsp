@@ -13,7 +13,7 @@
                 <form:hidden path = "id" value = "${userVal.id}" />
                 <table border="0">
                     <tr>
-                        <td colspan="3" align="center"><h2>User - Registration</h2></td>
+                        <td colspan="3" align="center"><h2>Edit profile</h2></td>
                     </tr>
                     <tr>
                         <td>First Name :</td>
