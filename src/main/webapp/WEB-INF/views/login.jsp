@@ -20,7 +20,6 @@
             </c:if>
 
 
-
             <form name='f' action="<c:url value='j_spring_security_check' />"
                   method='POST'>
 
@@ -44,9 +43,9 @@
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
             </form>
-            
+
             <a href="register">Register </a> | <a href="forgetPassword">Forget Password </a>
-            
+
         </div>
     </body>
 </html>

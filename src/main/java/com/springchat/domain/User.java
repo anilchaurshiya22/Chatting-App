@@ -54,9 +54,10 @@ public class User implements Serializable {
     @NotBlank
     @Email
     private String email;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @NotNull(message = "invalid date")
-    @Past(message = "invalid date")
+    @Past(message = "invalid birth date")
     @DateTimeFormat(pattern = "mm/dd/yyyy")
     private Date dob;
 

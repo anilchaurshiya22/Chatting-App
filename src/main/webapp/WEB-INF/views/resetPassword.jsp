@@ -5,6 +5,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Reset Password</title>
+            <link href="resources/style.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-theme.min.css" />
     </head>
     <body>
     <form:form action="resetPassword" method="POST" commandName="user">
