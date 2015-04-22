@@ -2,6 +2,9 @@ package com.springchat.util;
 
 import com.springchat.domain.User;
 import com.springchat.service.UserService;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,7 +22,7 @@ public class SecurityUtil {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             User user = userService.findUserByUsername(currentUserName);
-//            System.out.println("currentUserName=====" + user.getUsername());
+//            System.out.println("currentUserName=====" + user.getUsername());    
             return user;
         }
         return null;

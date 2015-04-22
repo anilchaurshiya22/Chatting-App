@@ -18,6 +18,7 @@
                     </sec:authorize>
                     <li><a href='<c:url value="/chat" />' > Chat</a></li>
                     <li><a href='<c:url value="/edit" />' > Edit Profile </a></li>
+                    <li><a href='<c:url value="/friendList" />' > Friends </a></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
