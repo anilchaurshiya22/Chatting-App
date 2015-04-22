@@ -12,27 +12,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Friend Request </title>
-        <!--<link href="resources/style.css" rel="stylesheet" type="text/css" />-->
+        <link href="resources/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>${message}</h1>	
-        <div id="login-box">
+        <div id="friendRequestDiv" style="margin-top: 90px; margin-left : 20px;">
             <form:form commandName="friendRequest" action="sendRequest"  method='POST'>
 
                 <table>
 
                     <tr>
-                        <td>Username or Email:</td>
+                        <td><form:label path="inviteCode" >Username or Email:</form:label></td>
                         <td><form:input path="inviteCode" /> </td>
                         <td><form:errors path="inviteCode" cssClass="error"/> </td>
                     </tr>
                     <tr>
-                        <td>Message:</td>
+                        <td><form:label path="message" >Message:</form:label></td>
                         <td><form:input path="message" /> </td>
                         <td><form:errors path="message" cssClass="error" /> </td>
                     </tr>
                 </table>
-                    <input type="submit" value="Send"/>
+                <input type="submit" value="Send"/>
             </form:form>
         </div>
     </body>

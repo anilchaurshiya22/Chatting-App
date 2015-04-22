@@ -104,4 +104,17 @@ public class UserDao {
     public void deleteFriendRequest(FriendRequest friendRequest) {
         sf.getCurrentSession().delete(friendRequest);
     }
+
+
+    public List<User> getUsers() {
+        Query query = sf.getCurrentSession().createQuery("from User u");
+        return query.list();
+    }
+    
+    public List<User> getUserHavingBirthDayToday(int month, int day) {
+        Query query = sf.getCurrentSession().createQuery("from User u where day(u.dob)=:day and month(u.dob)=:month");
+        query.setParameter("day", day);
+        query.setParameter("month", month);
+        return query.list();
+    }
 }

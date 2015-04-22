@@ -44,6 +44,9 @@ public class FriendRequestController {
 
     @RequestMapping(value = "/sendRequest", method = RequestMethod.POST)
     public String sendRequest(@Valid @ModelAttribute("friendRequest") FriendRequest friendRequest, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return "friendRequest";
+        }
         String username = friendRequest.getInviteCode();
         String message = friendRequest.getMessage();
 
@@ -52,31 +55,31 @@ public class FriendRequestController {
         User currentUser = securityUtil.getSessionUser();
 
         if (username.equals(currentUser.getUsername())) {
-            attributes.addFlashAttribute("message", "Sorry!!!,You can not send request to your self.");
+            attributes.addFlashAttribute("message", "Sorry,You can not send request to your self.");
             return "redirect:/sendRequest";
         }
 
         if (user == null) {
             if (!EmailValidator.isValidEmailAddress(username)) {
-                attributes.addFlashAttribute("message", "Sorry!!!,User not found");
+                attributes.addFlashAttribute("message", "Sorry,User not found");
                 return "redirect:/sendRequest";
             } else {
                 String randInviteCode = RandomGenerator.generateRandomNumber();
                 FriendRequest fr = userService.findFriendRequestByReceiverEmailAndSender(username, currentUser);
                 if (fr != null) {
-                    attributes.addFlashAttribute("message", "Sorry!!!,You have already send request to " + username + " .");
+                    attributes.addFlashAttribute("message", "Sorry,You have already send request to " + username + " .");
                     return "redirect:/sendRequest";
                 }
                 friendRequest.setInviteCode(randInviteCode);
                 friendRequest.setReceiverEmail(username);
                 //send Email to new Request.
-                String subject = currentUser.getUsername() + " has send you Friend Request in Spring Chat App.";
+                String subject = currentUser.getUsername() + " invite you to SpringChatPro.";
                 mailService.sendMail(currentUser.getUsername(), username, subject, message);
             }
         } else {
             FriendRequest fr = userService.findFriendRequestByReceiverAndSender(user, currentUser);
             if (fr != null) {
-                attributes.addFlashAttribute("message", "Sorry!!!,You have already send request to " + username + " .");
+                attributes.addFlashAttribute("message", "Sorry,You have already send request to " + username + " .");
                 return "redirect:/sendRequest";
             }
             friendRequest.setReceiver(user);
@@ -100,7 +103,7 @@ public class FriendRequestController {
     }
 
     @RequestMapping(value = "friendRequests/accept", method = RequestMethod.POST)
-    public String acceptFriendRequest( int id, RedirectAttributes redirectAttributes) {
+    public String acceptFriendRequest(int id, RedirectAttributes redirectAttributes) {
         FriendRequest friendRequest = userService.findFriendRequestById(id);
         User friend = userService.findUserById(friendRequest.getSender().getId());
         System.out.println("friend==" + friend.getUsername());
@@ -127,7 +130,7 @@ public class FriendRequestController {
     }
 
     @RequestMapping(value = "friendRequests/decline", method = RequestMethod.POST)
-    public String declineFriendRequest( int id, RedirectAttributes redirectAttributes) {
+    public String declineFriendRequest(int id, RedirectAttributes redirectAttributes) {
         FriendRequest friendRequest = userService.findFriendRequestById(id);
         userService.deleteFriendRequest(friendRequest);
         return "redirect:/friendRequests";
