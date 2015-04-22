@@ -41,6 +41,8 @@ public interface UserService {
     public void updateFriendRequest(FriendRequest friendRequest);
 
     public void deleteFriendRequest(FriendRequest friendRequest);
-    
+
+    public List<User> getUsers();
+
     public List<User> getUserHavingBirthDayToday(int month, int day);
 }

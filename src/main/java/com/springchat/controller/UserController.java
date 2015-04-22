@@ -8,13 +8,20 @@ import com.springchat.util.GenerateRandomNumber;
 import com.springchat.util.PasswordEncoderGenerator;
 import com.springchat.validator.EmailValidator;
 import com.springchat.validator.UniqueUsernameValidator;
+import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres, RedirectAttributes redirectAttributes) {
+    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres) {
         confirmPasswordValidator.validate(user, bres);
         UniqueUsernameValidator.validate(user, bres); 
         emailValidator.setIndex(0);
@@ -61,8 +68,6 @@ public class UserController {
         user.setUserRoles(userRoles);
        
         userService.insertNewUser(user);
-        
-        redirectAttributes.addFlashAttribute("userVal", user);
         return "redirect:/login";
     }
 
@@ -72,11 +77,12 @@ public class UserController {
             return "edit";
         }
         userService.updateUser(user);
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editProfile(@ModelAttribute("user") User user) {
+    public String editProfile(@ModelAttribute("user") User user,Model model,Principal principal) throws ParseException {
+        model.addAttribute("userVal",userService.findUserByUsername(principal.getName()));
         return "edit";
     }
 

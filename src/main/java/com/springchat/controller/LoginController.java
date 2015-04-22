@@ -27,7 +27,6 @@ public class LoginController {
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String executeSecurity(ModelMap model, Principal principal) {
-
         String name = principal.getName();
         model.addAttribute("author", name);
         model.addAttribute("message", "Welcome To Dashboard!!!");
@@ -44,7 +43,6 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model) {
         return "login";
-
     }
 
     @RequestMapping(value = "/loginFailed", method = RequestMethod.GET)

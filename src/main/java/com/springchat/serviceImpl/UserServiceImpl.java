@@ -104,6 +104,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsers() {
+       return userDao.getUsers();
+    }
     public List<User> getUserHavingBirthDayToday(int month, int day) {
         return userDao.getUserHavingBirthDayToday(month, day);
     }

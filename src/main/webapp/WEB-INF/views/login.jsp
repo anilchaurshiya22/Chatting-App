@@ -13,12 +13,11 @@
             <h3>Login Here</h3>
 
             <c:if test="${not empty error}">
-                <div class="error">${error}</div>
+                <div class="errorLogin">${error}</div>
             </c:if>
             <c:if test="${not empty msg}">
                 <div class="msg">${msg}</div>
             </c:if>
-
 
 
             <form name='f' action="<c:url value='j_spring_security_check' />"
@@ -44,9 +43,9 @@
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
             </form>
-            
+
             <a href="register">Register </a> | <a href="forgetPassword">Forget Password </a>
-            
+
         </div>
     </body>
 </html>

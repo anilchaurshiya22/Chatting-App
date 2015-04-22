@@ -54,10 +54,11 @@ public class User implements Serializable {
     @NotBlank
     @Email
     private String email;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @NotNull(message = "invalid date")
-    @Past(message = "invalid date")
-    @DateTimeFormat(pattern = "mm/dd/yyyy")
+    @Past(message = "invalid birth date")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dob;
 
     private Character gender;
@@ -106,6 +107,7 @@ public class User implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+    
 
     public List<UserRoles> getUserRoles() {
         return userRoles;

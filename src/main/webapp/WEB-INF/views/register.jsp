@@ -5,14 +5,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Registration</title>
-        <style>
-            .error{
-                color : #ff0000;
-            }
-        </style>
     </head>
     <body>
-        <div align="center">
+        <div align="left">
             <form:form action="register" method="POST" commandName="user">
                 <table border="0">
                     <tr>
