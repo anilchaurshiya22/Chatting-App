@@ -26,6 +26,7 @@
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border: 1px solid #000;
+<<<<<<< HEAD
 }
 
 
@@ -48,4 +49,14 @@ input[type="submit"]{
 
 .error{
     color : #ff0000;
+}
+
+#friendRequestDiv{
+    width: 500px;
+    padding: 20px;
+    margin: 100px auto;
+    background: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border: 1px solid #000;
 }

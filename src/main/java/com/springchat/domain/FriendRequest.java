@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -27,6 +28,7 @@ public class FriendRequest implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "sender_id")
     private User sender;
+    @NotBlank
     private String inviteCode;
     @ManyToOne()
     @JoinColumn(name = "receiver_id")
