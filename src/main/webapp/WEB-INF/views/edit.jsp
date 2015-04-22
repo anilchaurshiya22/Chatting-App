@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
 <!DOCTYPE html>
@@ -26,8 +27,9 @@
                     </tr>
 
                     <tr>
+                        <fmt:formatDate var = "formatDate" value="${userVal.dob}" pattern="MM/dd/yyyy" />
                         <td>DOB :</td>
-                        <td><form:input path="dob" value="${userVal.dob}"/></td>
+                        <td><form:input path="dob" value="${formatDate}"/></td>
                         <td><form:errors path="dob" cssClass="error"/></td>
                     </tr>
                     <tr>

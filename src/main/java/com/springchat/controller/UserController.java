@@ -9,7 +9,10 @@ import com.springchat.util.PasswordEncoderGenerator;
 import com.springchat.validator.EmailValidator;
 import com.springchat.validator.UniqueUsernameValidator;
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,8 +81,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editProfile(@ModelAttribute("user") User user,Model model,Principal principal) {
-        model.addAttribute("userVal", userService.findUserByUsername(principal.getName()));
+    public String editProfile(@ModelAttribute("user") User user,Model model,Principal principal) throws ParseException {
+        model.addAttribute("userVal",userService.findUserByUsername(principal.getName()));
         return "edit";
     }
 

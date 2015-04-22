@@ -58,7 +58,7 @@ public class User implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     @NotNull(message = "invalid date")
     @Past(message = "invalid birth date")
-    @DateTimeFormat(pattern = "mm/dd/yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date dob;
 
     private Character gender;
