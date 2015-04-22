@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Devil
  */
 @Controller
+@SessionAttributes("username")
 public class LoginController {
 
     @Autowired
@@ -41,7 +43,7 @@ public class LoginController {
         User currentUser = securityUtil.getSessionUser();
         List<FriendRequest> friendRequests = userService.getAllFriendRequestByUsernameAndStatus(currentUser);
         model.addAttribute("friendRequests", friendRequests);
-
+        model.addAttribute("username", currentUser.getName().split(" ")[0]);
         model.addAttribute("author", name);
         model.addAttribute("message", "Welcome To Dashboard!!!");
         return "dashboard";

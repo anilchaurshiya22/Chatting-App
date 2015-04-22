@@ -16,12 +16,13 @@
                     <sec:authorize access="hasRole('ROLE_ADMIN')" >
                         <li><a href='<c:url value="/adminController" />'>Manage Users</a></li>
                     </sec:authorize>
-                    <li><a href='<c:url value="/chat" />' > Chat</a></li>
+                    <li><a href='<c:url value="/chat" />' > Spring Chat</a></li>
                     <li><a href='<c:url value="/edit" />' > Edit Profile </a></li>
                     <li><a href='<c:url value="/friendList" />' > Friends </a></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href = '<c:url value="/index" />'>Log in as ${username} </a></li>
                      <li><a href='<c:url value="/j_spring_security_logout" />' var="logoutUrl"> Logout</a></li>
                 </ul>
             </div>
