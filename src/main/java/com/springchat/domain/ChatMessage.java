@@ -8,8 +8,6 @@ package com.springchat.domain;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -27,7 +25,7 @@ public class ChatMessage {
     private int id;
     
     @NotNull
-    @Column(name="user_id")
+    @ManyToOne
     private User sender;
     
     @NotBlank
@@ -39,6 +37,14 @@ public class ChatMessage {
     
     @ManyToOne
     private Chat chat;
+
+    public ChatMessage(User sender, String message, Chat chat) {
+        this.sender = sender;
+        this.message = message;
+        this.chat = chat;
+        sentDate = new Date();
+        status = "Sent!";
+    }
 
     public int getId() {
         return id;

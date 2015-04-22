@@ -26,9 +26,6 @@
                         <td>${friendRequest.sendDate}</td>
                         <td>${friendRequest.message}</td>
 
-
-<!--                    <td><a href="friendRequests/accept/${friendRequest.id}">Accept</a></td>
-                    <td><a href="friendRequests/decline/${friendRequest.id}">Decline</a></td>-->
                         <td>
                             <form action="friendRequests/accept?id=${friendRequest.id}" method="post">
                                 <button type="submit">Accept</button>
