@@ -1,5 +1,6 @@
 package com.springchat.domain;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -48,8 +49,10 @@ public class User implements Serializable {
     private boolean active;
 
     @NotBlank
+    @Expose
     private String firstName;
     @NotBlank
+    @Expose
     private String lastName;
     @NotBlank
     @Email

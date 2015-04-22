@@ -5,11 +5,13 @@
  */
 package com.springchat.domain;
 
+import com.google.gson.annotations.Expose;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
@@ -22,21 +24,28 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ChatMessage {
     @Id
     @GeneratedValue
+    @Expose
     private int id;
     
+    @Expose
     @NotNull
     @ManyToOne
     private User sender;
     
+    @Expose
     @NotBlank
     private String message;
     
+    @Expose
     private Date sentDate;
     
     private String status;
     
     @ManyToOne
     private Chat chat;
+
+    public ChatMessage() {
+    }
 
     public ChatMessage(User sender, String message, Chat chat) {
         this.sender = sender;

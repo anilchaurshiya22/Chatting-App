@@ -56,7 +56,7 @@
                     <ul class="nav nav-sidebar">
                         <c:forEach var="chat" items="${chats}">
                             <li class="active">
-                                <a href="#">
+                                <a href="javascript:;" class="chat" chat_id="${chat.id}">
                                     <span  style="font-weight: bold;">
                                         <c:if test='${fn:indexOf(chat.name, "/") > -1}'>
                                             <c:set var="test1" value="${name}/" />
@@ -72,14 +72,14 @@
                                         </c:if>
                                     </span>
                                     <br/>
-                                    <fmt:formatDate dateStyle="medium" pattern="MMM d HH:mm" value="${chat.lastUpdated}" />
+                                    <fmt:formatDate dateStyle="medium" pattern="MMM d h:mm a" value="${chat.lastUpdated}" />
                                 </a>
                             </li>
                         </c:forEach>
                     </ul>
                 </div>
                 <div id="chat-area" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="overflow-y: scroll; height: 500px;">
-                    <div id="new-chat" class="form-horizontal" style="display: none;">
+                    <div id="new-chat" class="form-horizontal">
                         <div class="form-group">
                             <label for="to" class="col-sm-1 control-label">To</label>
                             <div class="col-sm-11">
@@ -96,7 +96,7 @@
                         <ul id="messages" class="list-group">
                         </ul>
                     </div>
-                    <div style="position: fixed;bottom: 20px;" class="col-sm-9">
+                    <div id="message-box" style="position: fixed;bottom: 20px;" class="col-sm-9">
                         <textarea id="message" class="form-control" rows="3"></textarea>
                     </div>
                 </div>

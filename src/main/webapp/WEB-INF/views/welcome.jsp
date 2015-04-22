@@ -9,18 +9,11 @@
         <title>WELCOME TO SECURE AREA</title>
     </head>
     <body>
-        <h1>Message : ${message}</h1>	
-        <h1>Author : ${author}</h1>	
-        <a href='<c:url value="/sendRequest" />' > Send Friend Request</a> <br/>
-        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href='<c:url value="/adminController" />'> Manage Users</a></sec:authorize><br/>
-        <a href='<c:url value="/chat" />' > Chat</a><br/>
-        <a href='<c:url value="/edit" />' > Edit Profile </a> <br/><br/>
+        <jsp:include page="nav.jsp" />
+        <div style="margin-top: 90px; margin-left : 20px;">
+            <h1>${message}</h1>	
+            <h1>${author}</h1>	
+        </div>	
 
-        <a href='<c:url value="/j_spring_security_logout" />' var="logoutUrl"> Logout</a>
-        <form action="${logoutUrl}" method="post" id="logoutForm">
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
-        </form>
     </body>
-
 </html>

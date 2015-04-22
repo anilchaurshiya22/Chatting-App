@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres) {
+    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres,RedirectAttributes redirectAttributes) {
         confirmPasswordValidator.validate(user, bres);
         UniqueUsernameValidator.validate(user, bres); 
         emailValidator.setIndex(0);
@@ -68,6 +68,7 @@ public class UserController {
         user.setUserRoles(userRoles);
        
         userService.insertNewUser(user);
+        redirectAttributes.addFlashAttribute("msg","Your account is created");
         return "redirect:/login";
     }
 
@@ -108,16 +109,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/forgetPassword/{email}/{randomNumber}", method = RequestMethod.GET)
-    public String resetLink(@ModelAttribute("user") User user,@PathVariable String email, @PathVariable String randomNumber, Model model) {
+    public String resetLink(@ModelAttribute("user") User user,@PathVariable String email, @PathVariable String randomNumber, Model model,RedirectAttributes redirectAttributes) {
         User currUser = userService.getUserByEmail(email);
         if(currUser == null || currUser.getTokenValue() == null || !currUser.getTokenValue().equals(randomNumber)){
             return "redirect:/403";
         }
+        redirectAttributes.addFlashAttribute("msg","Reset link has been send");
         return "/resetPassword";
     }
 
     @RequestMapping(value = "/forgetPassword/{email}/resetPassword", method = RequestMethod.POST)
-    public String resetPassword(@ModelAttribute("user") User user, @PathVariable String email, BindingResult bres) { 
+    public String resetPassword(@ModelAttribute("user") User user, @PathVariable String email, BindingResult bres, RedirectAttributes redirectAttributes) { 
         confirmPasswordValidator.validate(user, bres);
         if (bres.hasErrors()) {
             return "/resetPassword";
@@ -125,6 +127,7 @@ public class UserController {
         User currUser = userService.getUserByEmail(email);
         currUser.setPassword(PasswordEncoderGenerator.beCryptPassword(user.getPassword()));
         userService.updateUser(currUser);
+        redirectAttributes.addFlashAttribute("msg","Password has been reset");
         return "redirect:/login";
     }
 

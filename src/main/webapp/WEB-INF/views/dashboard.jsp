@@ -9,40 +9,42 @@
         <title>Dashboard</title>
     </head>
     <body>
-        <h1>${message}</h1>	
-        <h1>Friend Request List</h1>
-        <c:if test="${!empty friendRequests }">
-            <table>
-                <tr>
-                    <td>Username</td>
-                    <td>Send Date</td>
-                    <td>Message</td>
-                    <td>Action</td>
-                </tr>
-
-                <c:forEach var="friendRequest" items="${friendRequests}">
+        <jsp:include page="nav.jsp" />
+        <div style="margin-top: 90px; margin-left : 20px;">
+            <h1>${message}</h1>	
+            <h1>Friend Request List</h1>
+            <c:if test="${!empty friendRequests }">
+                <table>
                     <tr>
-                        <td>${friendRequest.sender.username}</td>
-                        <td>${friendRequest.sendDate}</td>
-                        <td>${friendRequest.message}</td>
-
-                        <td>
-                            <form action="friendRequests/accept?id=${friendRequest.id}" method="post">
-                                <button type="submit">Accept</button>
-                            </form>
-                        </td> <td>
-                            <form action="friendRequests/decline?id=${friendRequest.id}" method="post">
-                                <button type="submit">Decline</button>
-                            </form>
-                        </td>
+                        <td>Username</td>
+                        <td>Send Date</td>
+                        <td>Message</td>
+                        <td>Action</td>
                     </tr>
-                </c:forEach>
-            </c:if>
-            <c:if test="${empty friendRequests }">
-                <h3>No Request Available</h3>
-            </c:if>
 
-        </table>
+                    <c:forEach var="friendRequest" items="${friendRequests}">
+                        <tr>
+                            <td>${friendRequest.sender.username}</td>
+                            <td>${friendRequest.sendDate}</td>
+                            <td>${friendRequest.message}</td>
 
+                            <td>
+                                <form action="friendRequests/accept?id=${friendRequest.id}" method="post">
+                                    <button type="submit">Accept</button>
+                                </form>
+                            </td> <td>
+                                <form action="friendRequests/decline?id=${friendRequest.id}" method="post">
+                                    <button type="submit">Decline</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty friendRequests }">
+                    <h3>No Request Available</h3>
+                </c:if>
+
+            </table>
+        </div>
     </body>
 </html>

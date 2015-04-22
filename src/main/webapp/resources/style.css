@@ -28,9 +28,30 @@
     border: 1px solid #000;
 }
 
+
+table{
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+input[type="text"],input[type="password"], input[type="submit"], select{
+    height : 30px;
+    border-radius: 5px;
+    margin : 2px;
+    font-size: 15px;
+}
+
+input[type="submit"]{
+    min-width: 90px;
+    height : 35px;
+    margin-top : 30px;
+    margin-left : 100px;
+}
+
 .error{
     color : #ff0000;
 }
+
 #friendRequestDiv{
     width: 500px;
     padding: 20px;

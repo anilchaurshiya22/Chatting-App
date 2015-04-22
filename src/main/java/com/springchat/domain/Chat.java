@@ -5,6 +5,7 @@
  */
 package com.springchat.domain;
 
+import com.google.gson.annotations.Expose;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -22,21 +23,29 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Chat {
     @Id
+    @Expose
     @GeneratedValue
     private int id;
     
+    @Expose
     @NotBlank
     private String name;
     
+    @Expose
     private Date lastUpdated;
 
+    @Expose
     private Boolean isGroup;
     
+    @Expose
     private String chatStatus;
     
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name="chat_id")
     private List<ChatMember> members;
+    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "chat")
+    private List<ChatMessage> messages;
 
     public Chat() {
         isGroup = false;
@@ -89,6 +98,14 @@ public class Chat {
 
     public void setMembers(List<ChatMember> members) {
         this.members = members;
+    }
+
+    public List<ChatMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
     
 }

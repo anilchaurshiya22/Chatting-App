@@ -6,9 +6,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+       <link href="resources/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div align="left">
+        <jsp:include page="nav.jsp" />
+        <div align="left" style="margin-top: 90px; margin-left : 20px;">
             <form:form action="edit" method="POST" commandName="user">
                 <form:hidden path = "id" value = "${userVal.id}" />
                 <table border="0">
@@ -46,11 +48,8 @@
                     <form:hidden path="username" value="${userVal.username}"/>
                     <form:hidden path="password" value="${userVal.password}"/>
                     <form:hidden path="email" value="${userVal.email}"/>
-
-                    <tr>
-                        <td colspan="3" align="center"><input type="submit" value="Update" /></td>
-                    </tr>
                 </table>
+                <input type="submit" value="Update" />
             </form:form>
         </div>
     </body>

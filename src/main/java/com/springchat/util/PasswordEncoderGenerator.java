@@ -14,9 +14,4 @@ public class PasswordEncoderGenerator {
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
-
-//    public static void main(String[] args) {
-
-//    }
-
 }

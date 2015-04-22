@@ -71,9 +71,10 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public int createNewMessage(User currentUser, int chatId, String message) {
-        Chat chat = chatDao.getChatById(chatId);
+        Chat chat = chatDao.getChatById(chatId, currentUser.getId());
         ChatMessage chatmessage = new ChatMessage(currentUser, message, chat);
         chatDao.insertChatMessage(chatmessage);
+        chatDao.updateChatMemberLastActivity(chatId, currentUser.getId());
         return chatmessage.getId();
     }
 
@@ -81,5 +82,16 @@ public class ChatServiceImpl implements ChatService {
     public List<Chat> getAllChats(long userId) {
         return chatDao.getChatListByUserId(userId);
     }
-        
+
+    @Override
+    public Chat getChat(User currentUser, int chatId) {
+        return chatDao.getChatById(chatId, currentUser.getId());
+    }
+
+    @Override
+    public List<ChatMessage> getNewChatMessages(User currentUser, int chatId, int messageId) {
+        List<ChatMessage> messages = chatDao.getNewMessages(chatId, currentUser.getId(), messageId);
+        return messages;
+    }
+    
 }

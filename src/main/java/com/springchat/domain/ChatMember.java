@@ -29,6 +29,9 @@ public class ChatMember {
     
     private Date lastActivity;
 
+    public ChatMember() {
+    }
+
     public ChatMember(User user) {
         this.user = user;
         this.lastActivity = new Date();

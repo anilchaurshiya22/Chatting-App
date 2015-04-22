@@ -30,7 +30,7 @@ public class LoginController {
         String name = principal.getName();
         model.addAttribute("author", name);
         model.addAttribute("message", "Welcome To Dashboard!!!");
-        return "welcome";
+        return "dashboard";
 
     }
 
