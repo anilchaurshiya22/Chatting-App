@@ -21,6 +21,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href = '<c:url value="/index" />'>Log in as ${author} </a></li>
                      <li><a href='<c:url value="/j_spring_security_logout" />' var="logoutUrl"> Logout</a></li>
                 </ul>
             </div>
