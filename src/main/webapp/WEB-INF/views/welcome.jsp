@@ -12,7 +12,7 @@
         <h1>Message : ${message}</h1>	
         <h1>Author : ${author}</h1>	
         <a href='<c:url value="/sendRequest" />' > Send Friend Request</a> <br/>
-        <a href='<c:url value="/adminController" />'> Manage Users</a><br/>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href='<c:url value="/adminController" />'> Manage Users</a></sec:authorize><br/>
         <a href='<c:url value="/chat" />' > Chat</a><br/>
         <a href='<c:url value="/edit" />' > Edit Profile </a> <br/><br/>
 
