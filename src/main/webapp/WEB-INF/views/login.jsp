@@ -13,7 +13,7 @@
             <h3>Login Here</h3>
 
             <c:if test="${not empty error}">
-                <div class="error">${error}</div>
+                <div class="errorLogin">${error}</div>
             </c:if>
             <c:if test="${not empty msg}">
                 <div class="msg">${msg}</div>
@@ -43,8 +43,10 @@
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
             </form>
-
-            <a href="register">Register </a> | <a href="forgetPassword">Forget Password </a>
+            
+            <div style="margin-top:30px">
+                <a href="register">Register </a> | <a href="forgetPassword">Forget Password </a>
+            <div>
 
         </div>
     </body>

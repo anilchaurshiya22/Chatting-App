@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres) {
+    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres,RedirectAttributes redirectAttributes) {
         confirmPasswordValidator.validate(user, bres);
         UniqueUsernameValidator.validate(user, bres); 
         emailValidator.setIndex(0);
@@ -68,6 +68,7 @@ public class UserController {
         user.setUserRoles(userRoles);
        
         userService.insertNewUser(user);
+        redirectAttributes.addFlashAttribute("msg","Your account is created");
         return "redirect:/login";
     }
 
