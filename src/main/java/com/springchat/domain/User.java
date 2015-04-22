@@ -106,6 +106,7 @@ public class User implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+    
 
     public List<UserRoles> getUserRoles() {
         return userRoles;

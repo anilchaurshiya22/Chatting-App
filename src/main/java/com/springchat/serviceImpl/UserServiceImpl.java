@@ -102,4 +102,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
+
+    @Override
+    public List<User> getUsers() {
+       return userDao.getUsers();
+    }
 }

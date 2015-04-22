@@ -104,4 +104,9 @@ public class UserDao {
     public void deleteFriendRequest(FriendRequest friendRequest) {
         sf.getCurrentSession().delete(friendRequest);
     }
+
+    public List<User> getUsers() {
+        Query query = sf.getCurrentSession().createQuery("from User u");
+        return query.list();
+    }
 }
