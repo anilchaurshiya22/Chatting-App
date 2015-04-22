@@ -109,6 +109,13 @@
     <bean id="userDao" class="com.springchat.dao.UserDao">
         <property name="sf" ref="sessionFactory"/>
     </bean>    
+    <bean id="chatService" class="com.springchat.serviceImpl.ChatServiceImpl">
+        <property name="chatDao" ref="chatDao"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="chatDao" class="com.springchat.dao.ChatDao">
+        <property name="sf" ref="sessionFactory"/>
+    </bean>   
 
     
 </beans>
