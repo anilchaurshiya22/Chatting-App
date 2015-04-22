@@ -44,9 +44,6 @@ public class FriendRequestController {
 
     @RequestMapping(value = "/sendRequest", method = RequestMethod.POST)
     public String sendRequest(@Valid @ModelAttribute("friendRequest") FriendRequest friendRequest, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) {
-            return "friendRequest";
-        }
         String username = friendRequest.getInviteCode();
         String message = friendRequest.getMessage();
 

@@ -24,12 +24,10 @@
                     <tr>
                         <td><form:label path="inviteCode" >Username or Email:</form:label></td>
                         <td><form:input path="inviteCode" /> </td>
-                        <td><form:errors path="inviteCode" cssClass="error"/> </td>
                     </tr>
                     <tr>
                         <td><form:label path="message" >Message:</form:label></td>
                         <td><form:input path="message" /> </td>
-                        <td><form:errors path="message" cssClass="error" /> </td>
                     </tr>
                 </table>
                 <input type="submit" value="Send"/>
