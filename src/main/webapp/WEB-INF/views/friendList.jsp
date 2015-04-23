@@ -14,15 +14,16 @@
         <jsp:include page="nav.jsp" />
 
         <div style="margin-top: 90px; margin-left : 20px;">
-            <h1>Friend List</h1>
-            <c:if test="${!empty friends }">
-                <table>
+            <h1><u>Friend List</u></h1>
+                    <c:if test="${!empty friends }">
+                <table border = "0" style=" font-size : 20px ; border-spacing: 20px;border-collapse: separate;" >
                     <tr>
-                        <td>First Name</td>
-                        <td>Last Name</td>
-                        <td>Date of Birth</td>
-                        <td>Email</td>
-                        <td>Username</td>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Action</th>
                     </tr>
 
                     <c:forEach var="friend" items="${friends}">
@@ -33,6 +34,11 @@
                             <td>${friend.dob}</td>
                             <td>${friend.email}</td>
                             <td>${friend.username}</td>
+                            <td>
+                                <form action="" method="post">
+                                    <input type="button" value="Unfriend"/>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:if>

@@ -42,7 +42,7 @@ public interface UserService {
 
     public void deleteFriendRequest(FriendRequest friendRequest);
 
-    public List<User> getUsers();
+    public List<User> getUsers(Long id);
 
     public List<User> getUserHavingBirthDayToday(int month, int day);
 }

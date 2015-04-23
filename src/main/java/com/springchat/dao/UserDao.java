@@ -106,8 +106,9 @@ public class UserDao {
     }
 
 
-    public List<User> getUsers() {
-        Query query = sf.getCurrentSession().createQuery("from User u");
+    public List<User> getUsers(long id) {
+        Query query = sf.getCurrentSession().createQuery("from User u where u.id!=:id");
+        query.setParameter("id", id);
         return query.list();
     }
     

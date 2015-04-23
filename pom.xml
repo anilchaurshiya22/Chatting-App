@@ -133,8 +133,9 @@
             <artifactId>json</artifactId>
             <version>20090211</version>
         </dependency>
+        
+        <!--Aop-->
         <dependency>
-
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.7.4</version>
@@ -144,6 +145,8 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
+        
+        <!--log-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
