@@ -17,6 +17,7 @@
         <access-denied-handler  error-page="/403" />
         <intercept-url pattern="/index*" access="ROLE_USER" />
         <intercept-url pattern="/sendRequest" access="ROLE_USER"/>
+        <intercept-url pattern="/chat/**" access="ROLE_USER"/>
 <!--        <intercept-url pattern="/adminController" access="ROLE_ADMIN"/>-->
         <form-login login-page="/login" default-target-url="/index"
                     authentication-failure-url="/loginFailed" />

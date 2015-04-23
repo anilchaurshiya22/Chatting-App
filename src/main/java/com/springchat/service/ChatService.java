@@ -11,11 +11,13 @@ import java.util.List;
  */
 public interface ChatService {
 
-    public Chat createNewChat(User currentUser, String[] friend_ids, String message);
+    public int createNewChat(User currentUser, String[] friend_ids, String message);
     
     public int createNewMessage(User currentUser, int chatId, String message);
     
     public List<Chat> getAllChats(long userId);
+            
+    public List<Chat> getAllUpdatedChats(long userId);
     
     public Chat getChat(User currentUser, int chatId);
     

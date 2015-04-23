@@ -42,6 +42,14 @@ public class ChatDao {
         return query.executeUpdate();
     }
     
+    public int updateChatLastActivity(int chatId) {
+        
+        Query query = sf.getCurrentSession().createQuery("update Chat set lastUpdated = :lastDate where id = :chatId");
+        query.setParameter("chatId", chatId);
+        query.setParameter("lastDate", new Date());
+        return query.executeUpdate();
+    }
+    
     public Chat getChatById(int chatId, long userId) {
         Query query = sf.getCurrentSession().createQuery("select c from Chat c join c.members m where c.id = :chatId and m.user.id = :userId");
         query.setParameter("chatId", chatId);
@@ -49,8 +57,21 @@ public class ChatDao {
         return (Chat) query.uniqueResult();
     }
     
+    public Chat getChatByTwoUser(long userId, long friendId) {
+        Query query = sf.getCurrentSession().createQuery("select c from Chat c join c.members m join c.members f where m.user.id = :userId and f.user.id = :friendId and c.isGroup = FALSE");
+        query.setParameter("userId", userId);
+        query.setParameter("friendId", friendId);
+        return (Chat) query.uniqueResult();
+    }
+    
     public List<Chat> getChatListByUserId(long userId) {
-        Query query = sf.getCurrentSession().createQuery("select c from Chat c join c.members m where m.user.id = :userId");
+        Query query = sf.getCurrentSession().createQuery("select c from Chat c join c.members m where m.user.id = :userId order by c.lastUpdated desc");
+        query.setParameter("userId", userId);
+        return query.list();
+    }
+    
+    public List<Chat> getUpdatedChatListByUserId(long userId) {
+        Query query = sf.getCurrentSession().createQuery("select c from Chat c join c.members m where m.user.id = :userId and c.lastUpdated > m.lastActivity");
         query.setParameter("userId", userId);
         return query.list();
     }

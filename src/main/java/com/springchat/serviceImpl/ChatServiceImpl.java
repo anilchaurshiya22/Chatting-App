@@ -33,16 +33,23 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Chat createNewChat(User currentUser, String[] friend_ids, String message) {
+    public int createNewChat(User currentUser, String[] friend_ids, String message) {
+        if (friend_ids.length == 1) {
+            Chat chat = chatDao.getChatByTwoUser(currentUser.getId(), Long.parseLong(friend_ids[0]));
+            if(chat != null) {
+                createNewMessage(currentUser, chat.getId(), message);
+                return chat.getId();
+            }
+        }
         Chat chat = new Chat();
-        
+
         List<ChatMember> members = new ArrayList<>();
         String chatName = currentUser.getName();
         ChatMember chatMember = new ChatMember(currentUser);
         members.add(chatMember);
-        
-        if(friend_ids.length > 1) {
-            for(String friend_id: friend_ids) {
+
+        if (friend_ids.length > 1) {
+            for (String friend_id : friend_ids) {
                 chatMember = new ChatMember(userDao.findUserById(Long.parseLong(friend_id)));
                 chatName += ", " + chatMember.getUser().getName();
                 members.add(chatMember);
@@ -58,15 +65,15 @@ public class ChatServiceImpl implements ChatService {
             chat.setIsGroup(false);
             chat.setChatStatus(currentUser.getName() + " started chat");
         }
-        
         chat.setMembers(members);
+
+        ChatMessage chatMessage = new ChatMessage(currentUser, message);
+        chat.getMessages().add(chatMessage);
+        chatMessage.setChat(chat);
         
         chatDao.insertChat(chat);
         
-        ChatMessage chatmessage = new ChatMessage(currentUser, message, chat);
-        chatDao.insertChatMessage(chatmessage);
-        
-        return chat;
+        return chat.getId();
     }
 
     @Override
@@ -74,6 +81,7 @@ public class ChatServiceImpl implements ChatService {
         Chat chat = chatDao.getChatById(chatId, currentUser.getId());
         ChatMessage chatmessage = new ChatMessage(currentUser, message, chat);
         chatDao.insertChatMessage(chatmessage);
+        chatDao.updateChatLastActivity(chatId);
         chatDao.updateChatMemberLastActivity(chatId, currentUser.getId());
         return chatmessage.getId();
     }
@@ -84,14 +92,19 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public List<Chat> getAllUpdatedChats(long userId) {
+        return chatDao.getUpdatedChatListByUserId(userId);
+    }
+
+    @Override
     public Chat getChat(User currentUser, int chatId) {
         return chatDao.getChatById(chatId, currentUser.getId());
     }
 
     @Override
     public List<ChatMessage> getNewChatMessages(User currentUser, int chatId, int messageId) {
-        List<ChatMessage> messages = chatDao.getNewMessages(chatId, currentUser.getId(), messageId);
-        return messages;
+        chatDao.updateChatMemberLastActivity(chatId, currentUser.getId());
+        return chatDao.getNewMessages(chatId, currentUser.getId(), messageId);
     }
-    
+
 }

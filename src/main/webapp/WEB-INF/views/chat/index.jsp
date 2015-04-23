@@ -23,6 +23,14 @@
             var baseUrl = '${base}';
             var name = '${name}';
         </script>
+        <style>
+            .chatalert {
+                background-color: red;
+            }
+            .chatalert a{
+                color: white !important;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -53,9 +61,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
+                    <ul id="chat-list" class="nav nav-sidebar">
                         <c:forEach var="chat" items="${chats}">
-                            <li class="active">
+                            <li>
                                 <a href="javascript:;" class="chat" chat_id="${chat.id}">
                                     <span  style="font-weight: bold;">
                                         <c:if test='${fn:indexOf(chat.name, "/") > -1}'>
@@ -91,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="chat-messages" style="display: block;">
+                    <div id="chat-messages" chat_id="0" style="display: block;">
                         <h2 id="chat-name" class="sub-header" style="border-bottom-width: 0px;">Section title</h2>
                         <ul id="messages" class="list-group">
                         </ul>

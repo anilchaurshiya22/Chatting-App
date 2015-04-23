@@ -47,6 +47,13 @@ public class ChatMessage {
     public ChatMessage() {
     }
 
+    public ChatMessage(User sender, String message) {
+        this.sender = sender;
+        this.message = message;
+        sentDate = new Date();
+        status = "Sent!";
+    }
+    
     public ChatMessage(User sender, String message, Chat chat) {
         this.sender = sender;
         this.message = message;

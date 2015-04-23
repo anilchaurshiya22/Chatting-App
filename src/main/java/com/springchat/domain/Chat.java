@@ -6,6 +6,7 @@
 package com.springchat.domain;
 
 import com.google.gson.annotations.Expose;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -45,7 +46,7 @@ public class Chat {
     private List<ChatMember> members;
     
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "chat")
-    private List<ChatMessage> messages;
+    private List<ChatMessage> messages = new ArrayList<>();
 
     public Chat() {
         isGroup = false;
