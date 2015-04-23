@@ -8,6 +8,7 @@ import com.springchat.domain.ChatMessage;
 import com.springchat.domain.User;
 import com.springchat.service.ChatService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,6 +52,7 @@ public class ChatServiceImpl implements ChatService {
         if (friend_ids.length > 1) {
             for (String friend_id : friend_ids) {
                 chatMember = new ChatMember(userDao.findUserById(Long.parseLong(friend_id)));
+                chatMember.setLastActivity(new Date(0));
                 chatName += ", " + chatMember.getUser().getName();
                 members.add(chatMember);
             }
@@ -59,6 +61,7 @@ public class ChatServiceImpl implements ChatService {
             chat.setChatStatus(currentUser.getName() + " started group chat");
         } else {
             chatMember = new ChatMember(userDao.findUserById(Long.parseLong(friend_ids[0])));
+            chatMember.setLastActivity(new Date(0));
             chatName += "/" + chatMember.getUser().getName();
             members.add(chatMember);
             chat.setName(chatName);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -38,18 +39,21 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a href='<c:url value="/index" />' >Dash Board</a></li>
+                        <li><a href='<c:url value="/index" />' > Dash Board </a></li>
+                        <li><a href='<c:url value="/sendRequest" />' > Send Friend Request</a></li>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                            <li><a href='<c:url value="/adminController" />'>Manage Users</a></li>
+                        </sec:authorize>
+                        <li><a href='<c:url value="/chat" />' > Spring Chat</a></li>
+                        <li><a href='<c:url value="/edit" />' > Edit Profile </a></li>
+                        <li><a href='<c:url value="/friendList" />' > Friends </a></li>
                     </ul>
                      
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:;" id="new-message">New Message</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Help</a></li>
+                        <li><a href = '<c:url value="/index" />'>Log in as ${username} </a></li>
+                        <li><a href='<c:url value="/j_spring_security_logout" />' var="logoutUrl"> Logout</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="">
-                    </form>
                 </div>
             </div>
         </nav>

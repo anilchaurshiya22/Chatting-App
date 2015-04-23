@@ -27,7 +27,6 @@ $(function () {
                             message: $('#message').val()
                         },
                         success: function (data) {
-                            data = JSON.parse(data);
                             if (data.response == "success") {
                                 $('.search-choice-close').trigger("click");
                                 $("#new-chat").hide();
@@ -44,9 +43,22 @@ $(function () {
                                 messages = JSON.parse(data.messages);
                                 $('#messages').html("");
                                 $.each(messages, function (i, message){
-                                    $("#messages").append("<li message_id=\"" + message.id + "\" class=\"list-group-item\"><div class=\"row\"><div class=\"col-sm-2\">" + message.sender.firstName + " " + message.sender.lastName + "</div><div class=\"col-sm-10\">" + message.message + "</div></div></li>");
+                                    $("#messages").append("<li message_id=\"" + message.id + "\" class=\"list-group-item\"><div class=\"row\"><div class=\"col-sm-2\">" + message.sender.firstName + " " + message.sender.lastName + "</div><div class=\"col-sm-8\">" + message.message + "</div><div class=\"col-sm-2\">" + message.sentDate + "</div></div></li>");
                                 });
                                 $('#message').val("");
+                                
+                                if($('#chat-list li a[chat_id="' + data.chat_id + '"]').length > 0) {
+                                    $('#chat-list li').removeClass("active");
+                                    $('#chat-list li a[chat_id="' + data.chat_id + '"]').parent('li').addClass("active");
+                                } else {
+                                    $('#chat-list li').removeClass("active");
+                                    chathtml = '<li class="active"><a href="javascript:;" class="chat" chat_id="'+data.chat_id+'">'+
+                                        '<span  style="font-weight: bold;">'+chat_name+'</span><br/>'+data.date+
+                                    '</a></li>';
+                                    $('#chat-list').prepend(chathtml);
+                                }
+                                
+                                
                                 newChat = false;
                             }
                         }
@@ -62,7 +74,6 @@ $(function () {
                             message: $('#message').val()
                         },
                         success: function (data) {
-                            data = JSON.parse(data);
                             if (data.response == "success") {
                                 $("#messages").append("<li message_id=\"" + data.message_id + "\" class=\"list-group-item\"><div class=\"row\"><div class=\"col-sm-2\">" + data.from + "</div><div class=\"col-sm-8\">" + $('#message').val() + "</div><div class=\"col-sm-2\">" + data.date + "</div></div></li>");
                                 $('#message').val("");
@@ -81,7 +92,6 @@ $(function () {
             url: baseUrl + 'chat/get-chat/' + $(this).attr("chat_id"),
             type: 'get',
             success: function (data) {
-                data = JSON.parse(data);
                 chat = JSON.parse(data.chat);
                 messages = JSON.parse(data.messages);
                 if (data.response == "success") {
@@ -123,7 +133,6 @@ $(function () {
                 url: baseUrl + 'chat/check-new-messages/' + $("#chat-messages").attr("chat_id") + '/' + $(".list-group-item:last").attr("message_id") + '/' + $("#chat-list li:first a").attr("chat_id"),
                 type: 'get',
                 success: function (data) {
-                    data = JSON.parse(data);
                     messages = JSON.parse(data.messages);
                     if (data.response == "success") {
                         $.each(messages, function (i, message){
@@ -159,11 +168,11 @@ $(function () {
                 }
             });
         } else {
+            var lastId = $("#chat-list li").length > 0 ? $("#chat-list li:first a").attr("chat_id") : 0;
             $.ajax({
-                url: baseUrl + 'chat/check-new-alert/' + $("#chat-list li:first a").attr("chat_id"),
+                url: baseUrl + 'chat/check-new-alert/' + lastId,
                 type: 'get',
                 success: function (data) {
-                    data = JSON.parse(data);
                     if (data.response == "success") {
                         if(data.chats != "noChat") {
                             chats = JSON.parse(data.chats);

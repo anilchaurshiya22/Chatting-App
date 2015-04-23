@@ -44,10 +44,10 @@ public class ChatController {
         return "chat/index";
     }
     
-    @RequestMapping(value="/new-chat", method = RequestMethod.POST)
+    @RequestMapping(value="/new-chat", method = RequestMethod.POST, produces = "text/json")
     public @ResponseBody String newChat(HttpServletRequest request) throws JSONException {
         JSONObject jsonObj = new JSONObject();
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder().setDateFormat("MMM d h:mm a").excludeFieldsWithoutExposeAnnotation().create();
         
         String[] friend_ids = request.getParameterValues("friends[]");
         String message = request.getParameter("message");
@@ -70,7 +70,7 @@ public class ChatController {
         return jsonObj.toString();
     }
     
-    @RequestMapping(value="/send-message", method = RequestMethod.POST)
+    @RequestMapping(value="/send-message", method = RequestMethod.POST, produces = "text/json")
     public @ResponseBody String newMessage(HttpServletRequest request) throws JSONException {
         JSONObject jsonObj = new JSONObject();
         
@@ -88,7 +88,7 @@ public class ChatController {
         return jsonObj.toString();
     }
     
-    @RequestMapping(value="/get-chat/{chatId}", method = RequestMethod.GET)
+    @RequestMapping(value="/get-chat/{chatId}", method = RequestMethod.GET, produces = "text/json")
     public @ResponseBody String getChat(@PathVariable int chatId) throws JSONException {
         JSONObject jsonObj = new JSONObject();
         Gson gson = new GsonBuilder().setDateFormat("MMM d h:mm a").excludeFieldsWithoutExposeAnnotation().create();
@@ -106,7 +106,7 @@ public class ChatController {
         return jsonObj.toString();
     }   
     
-    @RequestMapping(value="/check-new-messages/{chatId}/{messageId}/{lastChatId}", method = RequestMethod.GET)
+    @RequestMapping(value="/check-new-messages/{chatId}/{messageId}/{lastChatId}", method = RequestMethod.GET, produces = "text/json")
     public @ResponseBody String getNewMessages(@PathVariable int chatId, @PathVariable int messageId, @PathVariable int lastChatId) throws JSONException {
         JSONObject jsonObj = new JSONObject();
         Gson gson = new GsonBuilder().setDateFormat("MMM d h:mm a").excludeFieldsWithoutExposeAnnotation().create();
@@ -136,7 +136,7 @@ public class ChatController {
         return jsonObj.toString();
     }  
     
-    @RequestMapping(value="/check-new-alert/{lastChatId}", method = RequestMethod.GET)
+    @RequestMapping(value="/check-new-alert/{lastChatId}", method = RequestMethod.GET, produces = "text/json")
     public @ResponseBody String getNewMessages(@PathVariable int lastChatId) throws JSONException {
         JSONObject jsonObj = new JSONObject();
         Gson gson = new GsonBuilder().setDateFormat("MMM d h:mm a").excludeFieldsWithoutExposeAnnotation().create();
@@ -145,11 +145,15 @@ public class ChatController {
         
         List<Chat> chats = chatService.getAllChats(currentUser.getId());
         List<Chat> updatedChats = chatService.getAllUpdatedChats(currentUser.getId());
-        if(((Chat) chats.get(0)).getId() == lastChatId) {
-            jsonObj.put("chats","noChat");
+        if(chats.size() > 0) {
+            if(((Chat) chats.get(0)).getId() == lastChatId) {
+                jsonObj.put("chats","noChat");
+            } else {
+                String jsonChats = gson.toJson(chats);
+                jsonObj.put("chats",jsonChats);
+            }
         } else {
-            String jsonChats = gson.toJson(chats);
-            jsonObj.put("chats",jsonChats);
+            jsonObj.put("chats","noChat");
         }
         
         int[] updatedChatIds = new int[updatedChats.size()];
