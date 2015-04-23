@@ -210,7 +210,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ea.domain.User[ id=" + id + " ]";
+        return "com.springchat.domain.User[ id=" + id + " ]";
     }
 
 }

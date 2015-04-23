@@ -39,7 +39,8 @@
     </filter-mapping>
     
     <error-page>
-        <error-code>403</error-code>
-        <location>/views/403.jsp</location>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/404.jsp</location>
     </error-page>
+    
 </web-app>

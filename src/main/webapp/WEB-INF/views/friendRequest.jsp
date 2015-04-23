@@ -16,8 +16,8 @@
     </head>
     <body>
         <jsp:include page="nav.jsp" />
-        <h1>${message}</h1>	
         <div id="friendRequestDiv" style="margin-top: 90px; margin-left : 20px;">
+            <h1>${message}</h1>	
             <form:form commandName="friendRequest" action="sendRequest"  method='POST'>
 
                 <table>
@@ -25,12 +25,10 @@
                     <tr>
                         <td><form:label path="inviteCode" >Username or Email:</form:label></td>
                         <td><form:input path="inviteCode" /> </td>
-                        <td><form:errors path="inviteCode" cssClass="error"/> </td>
                     </tr>
                     <tr>
                         <td><form:label path="message" >Message:</form:label></td>
                         <td><form:input path="message" /> </td>
-                        <td><form:errors path="message" cssClass="error" /> </td>
                     </tr>
                 </table>
                 <input type="submit" value="Send"/>

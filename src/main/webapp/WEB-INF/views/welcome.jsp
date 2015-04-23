@@ -13,6 +13,7 @@
         <div style="margin-top: 90px; margin-left : 20px;">
             <h1>${message}</h1>	
             <h1>${author}</h1>	
-        </div>
+        </div>	
+
     </body>
 </html>

@@ -6,22 +6,21 @@ import com.springchat.domain.UserRoles;
 import com.springchat.service.UserService;
 import com.springchat.util.GenerateRandomNumber;
 import com.springchat.util.PasswordEncoderGenerator;
+import com.springchat.util.SecurityUtil;
 import com.springchat.validator.EmailValidator;
 import com.springchat.validator.UniqueUsernameValidator;
 import java.security.Principal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +42,8 @@ public class UserController {
     private EmailValidator emailValidator;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SecurityUtil securityUtil;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String user(@ModelAttribute("user") User user) {
@@ -50,9 +51,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres,RedirectAttributes redirectAttributes) {
+    public String formProcess(@Valid @ModelAttribute("user") User user, BindingResult bres, RedirectAttributes redirectAttributes) {
         confirmPasswordValidator.validate(user, bres);
-        UniqueUsernameValidator.validate(user, bres); 
+        UniqueUsernameValidator.validate(user, bres);
         emailValidator.setIndex(0);
         emailValidator.validate(user, bres);
         if (bres.hasErrors()) {
@@ -64,11 +65,11 @@ public class UserController {
         UserRoles userRole = new UserRoles();
         userRole.setRole("ROLE_USER");
         userRoles.add(userRole);
-        userRole.setUser(user); 
+        userRole.setUser(user);
         user.setUserRoles(userRoles);
-       
+
         userService.insertNewUser(user);
-        redirectAttributes.addFlashAttribute("msg","Your account is created");
+        redirectAttributes.addFlashAttribute("msg", "Your account is created");
         return "redirect:/login";
     }
 
@@ -82,8 +83,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editProfile(@ModelAttribute("user") User user,Model model,Principal principal) throws ParseException {
-        model.addAttribute("userVal",userService.findUserByUsername(principal.getName()));
+    public String editProfile(@ModelAttribute("user") User user, Model model, Principal principal) throws ParseException {
+        model.addAttribute("userVal", userService.findUserByUsername(principal.getName()));
         return "edit";
     }
 
@@ -109,17 +110,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/forgetPassword/{email}/{randomNumber}", method = RequestMethod.GET)
-    public String resetLink(@ModelAttribute("user") User user,@PathVariable String email, @PathVariable String randomNumber, Model model,RedirectAttributes redirectAttributes) {
+    public String resetLink(@ModelAttribute("user") User user, @PathVariable String email, @PathVariable String randomNumber, Model model, RedirectAttributes redirectAttributes) {
         User currUser = userService.getUserByEmail(email);
-        if(currUser == null || currUser.getTokenValue() == null || !currUser.getTokenValue().equals(randomNumber)){
+        if (currUser == null || currUser.getTokenValue() == null || !currUser.getTokenValue().equals(randomNumber)) {
             return "redirect:/403";
         }
-        redirectAttributes.addFlashAttribute("msg","Reset link has been send");
+        redirectAttributes.addFlashAttribute("msg", "Reset link has been send");
         return "/resetPassword";
     }
 
     @RequestMapping(value = "/forgetPassword/{email}/resetPassword", method = RequestMethod.POST)
-    public String resetPassword(@ModelAttribute("user") User user, @PathVariable String email, BindingResult bres, RedirectAttributes redirectAttributes) { 
+    public String resetPassword(@ModelAttribute("user") User user, @PathVariable String email, BindingResult bres, RedirectAttributes redirectAttributes) {
         confirmPasswordValidator.validate(user, bres);
         if (bres.hasErrors()) {
             return "/resetPassword";
@@ -127,8 +128,19 @@ public class UserController {
         User currUser = userService.getUserByEmail(email);
         currUser.setPassword(PasswordEncoderGenerator.beCryptPassword(user.getPassword()));
         userService.updateUser(currUser);
-        redirectAttributes.addFlashAttribute("msg","Password has been reset");
+        redirectAttributes.addFlashAttribute("msg", "Password has been reset");
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/friendList", method = RequestMethod.GET)
+    public String getFriendList(ModelMap model) {
+        User currentUser = securityUtil.getSessionUser();
+        Set<User> friends = new HashSet<>(currentUser.getFriends());
+        model.addAttribute("friends", friends);
+        for (User u : friends) {
+            System.out.println("name====" + u.getUsername());
+        }
+        return "friendList";
     }
 
 }

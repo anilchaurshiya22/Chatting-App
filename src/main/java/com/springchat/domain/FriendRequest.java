@@ -28,7 +28,6 @@ public class FriendRequest implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "sender_id")
     private User sender;
-    @NotBlank
     private String inviteCode;
     @ManyToOne()
     @JoinColumn(name = "receiver_id")

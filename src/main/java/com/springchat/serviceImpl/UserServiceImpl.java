@@ -104,8 +104,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() {
-       return userDao.getUsers();
+    public List<User> getUsers(Long id) {
+       return userDao.getUsers(id);
     }
     public List<User> getUserHavingBirthDayToday(int month, int day) {
         return userDao.getUserHavingBirthDayToday(month, day);
