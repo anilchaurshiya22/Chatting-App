@@ -10,6 +10,19 @@ This README would normally document whatever steps are necessary to get your app
   0.0.1-SNAPSHOT
 * [Source Code](https://github.com/anilchaurshiya22/Chatting-App)
 
+## Spring Technologies Used and Covered ##
+	• Spring MVC based on Annotation(CoC)
+	• Dependency Injection or IoC
+	• Spring Security
+	• JPA/Hibernate
+	• Internationalization
+	• Validation
+	• REST/Ajax
+	• JSTL/Spring Tag Lib/JSP
+	• Exception Handling
+	• File Upload
+	• Java Mail
+
 ### How do I get set up? ###
 
 * Summary of set up
@@ -27,5 +40,5 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+anil chaurshiya
+Suraj Shrestha
